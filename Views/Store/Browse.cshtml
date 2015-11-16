@@ -12,24 +12,32 @@
     <title>Browse</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
+<div class="input-group">
+    @using (Html.BeginForm("Browse", "Store"))
+    {
+        @Html.TextBox("SearchString")
+    <input type="submit" value="Search"/>
+    }
     
-    @foreach (var item in Model) {
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -41,11 +49,15 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                
+
             </td>
         </tr>
     }
-    
-    </table>
+
+</table>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 </body>
 </html>

@@ -18,19 +18,14 @@ namespace Shell.Migrations
         protected override void Seed(Shell.Models.ApplicationDbContext context)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            Product[] p = new Product[]
+            for (int i = 0; i < 100; i++)
             {
-                new Product
+                db.Products.Add(new Product
                 {
-                    Title = "Walking Cane",
+                    Title = i.ToString(),
                     Price = 10.6,
                     Description = "The best walking cane"
-                }
-            };
-
-            foreach (Product x in p)
-            {
-                db.Products.Add(x);
+                });
             }
             db.SaveChanges();
         }

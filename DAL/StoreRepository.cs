@@ -41,6 +41,14 @@ namespace Shell.DAL
             List<Product> products = context.Products.Where(p => p.Id != 0).ToList();
 
             return products;
-        } 
+        }
+
+        public IEnumerable<Product> AllProducts(string searchString)
+        {
+            //ICollection<Product> products = new Collection<Product>();
+            List<Product> products = context.Products.Where(p => p.Title.Contains(searchString)).ToList();
+
+            return products;
+        }
     }
 }
