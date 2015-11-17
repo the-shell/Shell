@@ -12,52 +12,41 @@
     <title>Browse</title>
 </head>
 <body>
-<div class="input-group">
+
+@*@<div class="input-group">
     @using (Html.BeginForm("Browse", "Store"))
     {
         @Html.TextBox("SearchString")
-    <input type="submit" value="Search"/>
+        <input type="submit" value="Search"/>
     }
-    
+
 </div>
+*@
+<h1>Space</h1>
+<h1>Space</h1>
+<h1>Space</h1>
+<h1>Space</h1>
+<h1>Space</h1>
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+@using (Ajax.BeginForm("Browse", "Store",
+    new AjaxOptions
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "this"
+    }))
+{
+    @Html.TextBox("searchString")
+    <input type="submit" value="Search"/>
+}
 
-            </td>
-        </tr>
-    }
+<div id="this">
+    @Html.Partial("_Listings", Model)
 
-</table>
-
+</div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 </body>
+
 </html>

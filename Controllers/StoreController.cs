@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -50,7 +51,15 @@ namespace Shell.Controllers
         [HttpPost]
         public ActionResult Browse(string searchString)
         {
-            return View("Browse", storeRepo.AllProducts(searchString).Take(10));
+            var model = storeRepo.AllProducts(searchString).Take(10);
+
+            if (new HttpRequestWrapper(System.Web.HttpContext.Current.Request).IsAjaxRequest())
+            {
+                Debug.WriteLine("IsAjax");
+                return PartialView("_Listings", model);
+            }
+
+            return View("Browse", model);
         }
     }
 }
