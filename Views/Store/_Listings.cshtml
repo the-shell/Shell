@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Shell.Models.Product>
-<div id="listings">
+﻿@using System.Diagnostics
+@model IEnumerable<Shell.Models.Product>
+
     <table class="table">
         <tr>
             <th>
@@ -16,6 +17,7 @@
 
         @foreach (var item in Model)
         {
+            
             <div class="text-right">
                 <tr>
 
@@ -35,4 +37,4 @@
         }
 
     </table>
-</div>
+

@@ -1,17 +1,5 @@
 ﻿@model IEnumerable<Shell.Models.Product>
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Browse</title>
-</head>
-<body>
 
 @*@<div class="input-group">
     @using (Html.BeginForm("Browse", "Store"))
@@ -36,17 +24,12 @@
         UpdateTargetId = "this"
     }))
 {
-    @Html.TextBox("searchString")
+    <input type="search" name="searchString"/>
     <input type="submit" value="Search"/>
 }
-
 <div id="this">
-    @Html.Partial("_Listings", Model)
-
+    @{ Html.RenderPartial("_Listings", Model); }
 </div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-</body>
-
-</html>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>

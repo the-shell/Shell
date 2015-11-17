@@ -52,8 +52,8 @@ namespace Shell.Controllers
         public ActionResult Browse(string searchString)
         {
             var model = storeRepo.AllProducts(searchString).Take(10);
-
-            if (new HttpRequestWrapper(System.Web.HttpContext.Current.Request).IsAjaxRequest())
+            Debug.WriteLine("Here");
+            if (Request.IsAjaxRequest())
             {
                 Debug.WriteLine("IsAjax");
                 return PartialView("_Listings", model);
