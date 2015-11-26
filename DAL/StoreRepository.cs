@@ -13,18 +13,11 @@ namespace Shell.DAL
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
-        public bool AddNewProduct(CreateProductViewModel model)
+        public bool AddNewProduct(Product model)
         {
-            Product p = new Product
+           try
             {
-                Title = model.Title,
-                Description = model.Description,
-                Price = model.Price
-            };
-
-            try
-            {
-                context.Products.Add(p);
+                context.Products.Add(model);
                 context.SaveChanges();
             }
             catch (Exception)
@@ -49,6 +42,13 @@ namespace Shell.DAL
             List<Product> products = context.Products.Where(p => p.Title.Contains(searchString)).ToList();
 
             return products;
+        }
+
+        public IEnumerable<Category> CategoriesWithMostProducts()
+        {
+            IEnumerable<Category> categories = context.Categories.Where(p => p.Name != null).Take(12);
+
+            return categories;
         }
     }
 }

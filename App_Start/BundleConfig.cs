@@ -12,8 +12,9 @@ namespace Shell
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-{version}.js",
-                "~/Scripts/jquery.unobtrusive*",
-                "~/Scripts/jquery.validate.js"));
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                "~/Scripts/jquery.validate*"
+                ));
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js"));

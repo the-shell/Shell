@@ -30,7 +30,8 @@ namespace Shell.Models
             }
             set { _orders = value; }
         }
-
         private ICollection<Cart> _orders;
+
+        public Category Category { get; set; }
     }
 }

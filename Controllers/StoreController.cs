@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Shell.DAL;
 using Shell.Models;
+using Shell.ViewModels;
 using Shell.ViewModels.Product;
 
 namespace Shell.Controllers
@@ -20,8 +21,13 @@ namespace Shell.Controllers
         public ActionResult Index()
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            
-            return View();
+            var categories = storeRepo.CategoriesWithMostProducts();
+
+
+            return View(new StoreFrontViewModel
+            {
+                Categories = categories
+            });
         }
 
         [Authorize]
@@ -32,9 +38,21 @@ namespace Shell.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Title,Description,Price")] CreateProductViewModel model)
+        public ActionResult Create([Bind(Include = "Title,Description,Price,Category")] CreateProductViewModel model)
         {
-            var result = storeRepo.AddNewProduct(model);
+            Product product = new Product
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                Category = new Category
+                {
+                    Name = model.Category
+                }
+            };
+
+            var result = storeRepo.AddNewProduct(product);
+
             if (result)
             {
                 return RedirectToAction("Index");
@@ -60,6 +78,11 @@ namespace Shell.Controllers
             }
 
             return View("Browse", model);
+        }
+
+        public ActionResult Details()
+        {
+            return View();
         }
     }
 }

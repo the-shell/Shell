@@ -33,5 +33,7 @@ namespace Shell.Models
         public System.Data.Entity.DbSet<Shell.Models.Product> Products { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

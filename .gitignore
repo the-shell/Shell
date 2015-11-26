@@ -213,3 +213,9 @@ ModelManifest.xml
 
 *.pubxml
 PublishProfiles/
+Migrations/
+packages.config
+Web.config
+Project_Readme.html
+Properties/
+References/

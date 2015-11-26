@@ -10,16 +10,11 @@
 
 </div>
 *@
-<h1>Space</h1>
-<h1>Space</h1>
-<h1>Space</h1>
-<h1>Space</h1>
-<h1>Space</h1>
 
 @using (Ajax.BeginForm("Browse", "Store",
     new AjaxOptions
     {
-        HttpMethod = "GET",
+        HttpMethod = "get",
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "this"
     }))
@@ -28,7 +23,7 @@
     <input type="submit" value="Search"/>
 }
 <div id="this">
-    @{ Html.RenderPartial("_Listings", Model); }
+    @Html.Partial("_Listings", Model)
 </div>
     <p>
         @Html.ActionLink("Create New", "Create")
