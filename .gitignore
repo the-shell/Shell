@@ -219,3 +219,7 @@ Web.config
 Project_Readme.html
 Properties/
 References/
+Shell.csproj
+Global.asax
+Web.Debug.Config
+Web.Release.config
