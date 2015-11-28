@@ -35,5 +35,7 @@ namespace Shell.Models
         public Category Category { get; set; }
 
         public DateTime DateListed { get; set; }
+
+        public virtual ICollection<ProductImage> Images { get; set; }
     }
 }

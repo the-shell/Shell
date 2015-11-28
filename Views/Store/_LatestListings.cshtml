@@ -14,7 +14,7 @@
         @foreach (Product p in Model)
         {
             <li>
-                <img src="https://s3-ap-southeast-2.amazonaws.com/shell-image-bucket/pic_mountain.jpg" />
+                <img src="@p.Images.First().URL" />
             </li>
         }
     </ul>
