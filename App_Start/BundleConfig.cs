@@ -13,6 +13,8 @@ namespace Shell
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                "~/Scripts/sly.js",
+                "~/Scripts/horizontal.js",
                 "~/Scripts/jquery.validate*"
                 ));
 

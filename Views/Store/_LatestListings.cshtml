@@ -1,8 +1,16 @@
 ﻿@using Shell.Models
 @model IEnumerable<Shell.Models.Product>
 <h3>Latest Listings</h3>
-<div id="latest_listings">
-    <ul>
+
+
+<div class="scrollbar">
+    <div class="handle">
+        <div class="mousearea"></div>
+    </div>
+</div>
+
+<div class="frame" id="basic">
+    <ul class="clearfix">
         @foreach (Product p in Model)
         {
             <li>
@@ -13,3 +21,4 @@
         }
     </ul>
 </div>
+

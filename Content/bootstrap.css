@@ -6815,11 +6815,3 @@ td.visible-print {
   }
 }
 
-#latest_listings ul {
-    list-style: none;
-}
-
-#latest_listings ul li {
-    display: inline;
-    float: left;
-}
