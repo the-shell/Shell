@@ -33,5 +33,7 @@ namespace Shell.Models
         private ICollection<Cart> _orders;
 
         public Category Category { get; set; }
+
+        public DateTime DateListed { get; set; }
     }
 }

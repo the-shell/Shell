@@ -22,11 +22,12 @@ namespace Shell.Controllers
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             var categories = storeRepo.CategoriesWithMostProducts();
-
+            var latestListings = storeRepo.LatestListings();
 
             return View(new StoreFrontViewModel
             {
-                Categories = categories
+                Categories = categories,
+                LatestListings = latestListings
             });
         }
 
@@ -48,7 +49,8 @@ namespace Shell.Controllers
                 Category = new Category
                 {
                     Name = model.Category
-                }
+                },
+                DateListed = DateTime.Now
             };
 
             var result = storeRepo.AddNewProduct(product);

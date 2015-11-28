@@ -6814,3 +6814,12 @@ td.visible-print {
     display: none !important;
   }
 }
+
+#latest_listings ul {
+    list-style: none;
+}
+
+#latest_listings ul li {
+    display: inline;
+    float: left;
+}

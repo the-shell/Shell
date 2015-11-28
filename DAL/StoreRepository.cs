@@ -50,5 +50,12 @@ namespace Shell.DAL
 
             return categories;
         }
+
+        public IEnumerable<Product> LatestListings()
+        {
+            IEnumerable<Product> latestListings = context.Products.OrderByDescending(p => p.DateListed).Take(15);
+
+            return latestListings;
+        }
     }
 }

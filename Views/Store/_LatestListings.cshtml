@@ -1,0 +1,14 @@
+﻿@using Shell.Models
+@model IEnumerable<Shell.Models.Product>
+<div id="latest_listings">
+    <ul>
+        @foreach (Product p in Model)
+        {
+            <li>
+                <p>@p.Title</p>
+                <p>@p.Price</p>
+                <p>@p.DateListed.</p>
+            </li>
+        }
+    </ul>
+</div>

@@ -15,21 +15,26 @@
                 <h4>
                     @Html.ActionLink(@category.Name, "Details")
                 </h4>
-                
+
             </div>
-            
+
         }
 
 
     </div>
 
     <div class="col-md-4">
-       
-            <img src="http://i.imgur.com/vihxsPv.jpg"/>
-      
+
+        <img src="http://i.imgur.com/vihxsPv.jpg"/>
+
     </div>
 
 
+</div>
+
+<div>
+    
+    @{ Html.RenderPartial("_LatestListings", Model.LatestListings); }
 </div>
 
 <ul id="album-list" class="list-unstyled">

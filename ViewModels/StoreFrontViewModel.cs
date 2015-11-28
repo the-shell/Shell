@@ -9,5 +9,7 @@ namespace Shell.ViewModels
     public class StoreFrontViewModel
     {
         public IEnumerable<Category> Categories { get; set; }
+
+        public IEnumerable<Models.Product> LatestListings { get; set; }
     }
 }
