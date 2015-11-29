@@ -16,6 +16,7 @@ namespace Shell.Controllers
     public class StoreController : Controller
     {
         StoreRepository storeRepo = new StoreRepository();
+        S3Client S3Client = new S3Client();
 
         // GET: Store
         public ActionResult Index()
@@ -23,6 +24,10 @@ namespace Shell.Controllers
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             var categories = storeRepo.CategoriesWithMostProducts();
             var latestListings = storeRepo.LatestListings();
+            foreach (var l in latestListings)
+            {
+                Debug.WriteLine(string.Format("Title: {0} URL: {1}", l.Title, l.Images.First().URL));
+            }
 
             return View(new StoreFrontViewModel
             {
@@ -39,8 +44,17 @@ namespace Shell.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Title,Description,Price,Category")] CreateProductViewModel model)
+        public ActionResult Create([Bind(Include = "Title,Description,Price,Category,File")] CreateProductViewModel model)
         {
+            string ImageURL;
+            if (model.File != null)
+            {
+                ImageURL = S3Client.PutImage(model.File);
+            }
+            else
+            {
+                ImageURL = "dummy";
+            }
             Product product = new Product
             {
                 Title = model.Title,
@@ -50,7 +64,14 @@ namespace Shell.Controllers
                 {
                     Name = model.Category
                 },
-                DateListed = DateTime.Now
+                DateListed = DateTime.Now,
+                Images = new List<ProductImage>
+                {
+                    new ProductImage
+                    {
+                        URL = ImageURL
+                    }
+                }
             };
 
             var result = storeRepo.AddNewProduct(product);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Amazon.CloudSearchDomain;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -9,12 +10,35 @@ namespace Shell.DAL
 {
     public class S3Client
     {
-        AmazonS3Client client = new AmazonS3Client();
+        private readonly string ImageBucket = "shell-image-bucket";
 
-        ListObjectsRequest request = new ListObjectsRequest
+        private static AmazonS3Client client;
+
+        public S3Client()
         {
-            BucketName = "shell-image-bucket"
-        };
+            client = new Amazon.S3.AmazonS3Client(Amazon.RegionEndpoint.APSoutheast2);
+        }
+
+        public string PutImage(HttpPostedFileBase file)
+        {
+            PutObjectRequest request = new PutObjectRequest()
+            {
+                BucketName = ImageBucket,
+                Key = file.FileName,
+                ContentType = "image/jpeg",
+                InputStream = file.InputStream
+            };
+            PutObjectResponse response = client.PutObject(request);
+
+            return GetURL(file.FileName);
+        }
+
+        private string GetURL(string fileName)
+        {
+            string URL = string.Format("https://s3-ap-southeast-2.amazonaws.com/{0}/{1}", ImageBucket, fileName);
+
+            return URL;
+        }
 
        
     }

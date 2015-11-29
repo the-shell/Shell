@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,5 +12,8 @@ namespace Shell.ViewModels.Product
         public string Description { get; set; }
         public double Price { get; set; }
         public string Category { get; set; }
+
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase File { get; set; }
     }
 }
