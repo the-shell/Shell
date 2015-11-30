@@ -1,16 +1,6 @@
 ﻿@model Shell.ViewModels.Product.CreateProductViewModel
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
@@ -52,7 +42,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Files)
-                <input type="file" name="Files" multiple />
+                <input type="file" name="Files" multiple id="upload" onchange="showImages()"/>
             </div>
 
             <div class="form-group">
@@ -62,9 +52,47 @@
             </div>
         </div>
     </form>
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function showImages() {
+        var imageArray = [];
+        var inp = document.getElementById("upload");
+
+        for (var i = 0; i < inp.files.length; i++) {
+
+            imageArray.push( {Name : inp.files.item(i).name} );
+            
+            console.log(inp.files.item(i).name);
+            //alert(inp.files.item(i).name);
+        }
+
+        
+        var data = JSON.stringify({'data': imageArray});
+        console.log(data);
+        var things = [
+            { id: 1, color: 'yellow' },
+            { id: 2, color: 'blue' }
+        ];
+
+        things = JSON.stringify({ 'things': things });
+        console.log(things);
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            type: "POST",
+            url: "/Store/GetImageResult",
+            data: data,
+            
+            success: function(response) {
+                alert(response);
+            },
+            failure: function(response) {
+                alert("Soemthing went wrong");
+            }
+        });
+    }
+</script>
 </body>
-</html>

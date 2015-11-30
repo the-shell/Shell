@@ -111,5 +111,24 @@ namespace Shell.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult GetImageResult(List<ImageDt> data)
+        {
+            //var returnData = new List<object>();
+            //foreach (var d in imageArray)
+            //{
+            //    Debug.WriteLine(d.myData);
+            //    returnData.Add(d);
+            //}
+            
+            //return Json(returnData);
+            foreach (var c in data)
+            {
+                Debug.WriteLine(c.Name);
+            }
+            
+            return Json("this");
+        }
     }
 }
