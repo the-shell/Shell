@@ -44,12 +44,16 @@ namespace Shell.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Title,Description,Price,Category,File")] CreateProductViewModel model)
+        public ActionResult Create([Bind(Include = "Title,Description,Price,Category,Files")] CreateProductViewModel model)
         {
             string ImageURL;
-            if (model.File != null)
+            if (model.Files != null)
             {
-                ImageURL = S3Client.PutImage(model.File);
+                foreach (var image in model.Files)
+                {
+                    S3Client.PutImage(image);
+                }
+                
             }
             else
             {
@@ -69,7 +73,7 @@ namespace Shell.Controllers
                 {
                     new ProductImage
                     {
-                        URL = ImageURL
+                        URL = "dummy"
                     }
                 }
             };

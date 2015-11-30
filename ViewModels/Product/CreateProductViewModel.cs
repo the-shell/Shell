@@ -14,6 +14,6 @@ namespace Shell.ViewModels.Product
         public string Category { get; set; }
 
         [DataType(DataType.Upload)]
-        public HttpPostedFileBase File { get; set; }
+        public IEnumerable<HttpPostedFileBase> Files { get; set; }
     }
 }
