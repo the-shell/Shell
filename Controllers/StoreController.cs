@@ -113,7 +113,7 @@ namespace Shell.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImageResult(List<ImageDt> data)
+        public ActionResult GetImageResult(List<ImageDt> data)
         {
             //var returnData = new List<object>();
             //foreach (var d in imageArray)
@@ -123,12 +123,14 @@ namespace Shell.Controllers
             //}
             
             //return Json(returnData);
+            List<string> urls = new List<string>();
+
             foreach (var c in data)
             {
-                Debug.WriteLine(c.Name);
+                urls.Add(c.Name);
             }
-            
-            return Json("this");
+                        
+            return Json(urls, JsonRequestBehavior.AllowGet);
         }
     }
 }
