@@ -1,7 +1,7 @@
 ﻿@model Shell.ViewModels.Product.CreateProductViewModel
 
 
-<body>
+
     <form action="" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
 
@@ -45,11 +45,7 @@
                 <input type="file" name="Files" multiple id="upload" onchange="showFiles(this)"/>
             </div>
 
-            <div id="list">
-                <ul>
-                    
-                </ul>
-            </div>
+            
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -63,33 +59,41 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+    <div class="scrollbar">
+        <div class="handle">
+            <div class="mousearea"></div>
+        </div>
+    </div>
+
+    <div class="frame" id="basic">
+        <ul class="clearfix" id="list">
+            <li>Nothing</li>
+        </ul>
+    </div>
+
 <script>
     
-    function createImageWithName(e, fullName) {
-        var div = document.createElement("div");
-        var image = document.createElement("img");
-        image.src = e.target.result;
-        var name = document.createElement("p");
-        name.innerHTML = fullName;
-        div.appendChild(image);
-        div.appendChild(name);
-        return div;
-    }
+  
     
     function showFiles(input) {
         var list = document.getElementById("list");
-        $(input.files).each(function() {
+        $(input.files).each(function () {
+            var image = document.createElement("img");
+            var li = document.createElement("li");
+
             var reader = new FileReader();
             var name = this.name;
             console.log(name);
             reader.readAsDataURL(this);
             reader.onload = function (e) {
-                var imageWithName = createImageWithName(e, name);
                 
-                list.appendChild(imageWithName);
+                image.src = e.target.result;
+                li.appendChild(image);
+                list.appendChild(li);
             }
+            
         });
     }
 
 </script>
-</body>
+
