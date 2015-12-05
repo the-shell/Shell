@@ -1,57 +1,14 @@
-﻿<div class="height">
-    <div class="scrollable-container">
-        <div class="scrollable-content">
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-            <p>This</p>
-        </div>
+﻿
+<label onclick="change(this)">
+    <input type="radio" name="radio_button"/>
+    <img src="unadslgundfguh"/>
+</label>
 
-    </div>
-</div>
-
-        
+<script>
+    function change(parentNode) {
+        for (var i = 0; i < parentNode.childNodes.length; i++) {
+            console.log(i);
+            console.log(parentNode.childNodes[i].src);
+        }  
+    }
+</script>

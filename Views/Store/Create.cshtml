@@ -92,11 +92,8 @@
                 var reader = new FileReader();
                 reader.readAsDataURL(this);
                 reader.onload = function (e) {
-                    
-                    var img = document.createElement("img");
-                    img.src = e.target.result;
-                    $("#img-list").append(img);
-                    //$("#previewImg").append("<img class='thumb' src='" + e.target.result + "'>");
+                    var item = createRadioImage(e);
+                    $("#img-list").append(item);
                 }
             });
         }
@@ -125,6 +122,27 @@
             data: JSON.stringify(product),
             contentType: "application/json; charset=utf-8"
         });
+    }
+
+    function check(parentNode) {
+        console.log(parentNode.childNodes[1].src);
+    }
+
+    function createRadioImage(e) {
+        var label = document.createElement("label");
+        label.setAttribute("onclick", "check(this)");
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "radio");
+        input.setAttribute("name", "img_radio");
+
+        var img = document.createElement("img");
+        img.src = e.target.result;
+
+        label.appendChild(input);
+        label.appendChild(img);
+        return label;
+
     }
 
 
