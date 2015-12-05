@@ -151,3 +151,7 @@ body { background: #e8e8e8; }
     height: 500px;
     display: none;
 }
+
+.create {
+    top: 50px;
+}

@@ -46,6 +46,15 @@ namespace Shell.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Title,Description,Price,Category,Files")] CreateProductViewModel model)
         {
+            Debug.WriteLine(model.Title);
+            Debug.WriteLine(model.Category);
+            Debug.WriteLine(model.Description);
+            Debug.WriteLine(model.Price);
+            foreach (var file in model.Files)
+            {
+                Debug.WriteLine(file.FileName);
+            }
+            
             string ImageURL;
             if (model.Files != null)
             {
