@@ -32,6 +32,15 @@ textarea {
     float: left;
 }
 
+body { background: #e8e8e8; }
+.container { margin: 0 auto; }
+
+/* Example wrapper */
+.wrap {
+	position: relative;
+	margin: 3em 0;
+}
+
 /* Frame */
 .frame {
 	height: 250px;
@@ -46,7 +55,7 @@ textarea {
 	font-size: 50px;
 }
 .frame ul li {
-	/*float: left;*/
+	float: left;
 	width: 227px;
 	height: 100%;
 	margin: 0 1px 0 0;
@@ -80,4 +89,65 @@ textarea {
 	left: 0;
 	width: 100%;
 	height: 20px;
+}
+
+/* Pages */
+.pages {
+	list-style: none;
+	margin: 20px 0;
+	padding: 0;
+	text-align: center;
+}
+.pages li {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin: 0 4px;
+	text-indent: -999px;
+	border-radius: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
+}
+.pages li:hover {
+	background: #aaa;
+}
+.pages li.active {
+	background: #666;
+}
+
+#scroll {
+    width: 600px;
+    height: 180px;
+    margin: 100px auto;
+    background: #A3CBE0;
+    border: 2px solid #000;
+    overflow: auto;
+    white-space: nowrap;
+    box-shadow: 0 0 10px #000;
+}
+
+
+.scrollable-container {
+    height: 100%;
+}
+
+.scrollable-content {
+    height: 100%;
+    position: relative;
+    overflow: auto;
+}
+
+.this-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.height {
+    height: 500px;
+    display: none;
 }

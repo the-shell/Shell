@@ -132,5 +132,10 @@ namespace Shell.Controllers
                         
             return Json(urls, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

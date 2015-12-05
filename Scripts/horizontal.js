@@ -1,10 +1,10 @@
-﻿jQuery(function ($) {
+﻿jQuery(function($) {
     'use strict';
 
     // -------------------------------------------------------------
     //   Basic Navigation
     // -------------------------------------------------------------
-    (function () {
+    (function() {
         var $frame = $('#basic');
         var $slidee = $frame.children('ul').eq(0);
         var $wrap = $frame.parent();
@@ -18,7 +18,7 @@
             mouseDragging: 1,
             touchDragging: 1,
             releaseSwing: 1,
-            startAt: 0,
+            startAt: 3,
             scrollBar: $wrap.find('.scrollbar'),
             scrollBy: 1,
             pagesBar: $wrap.find('.pages'),
@@ -40,7 +40,7 @@
         });
 
         // To Start button
-        $wrap.find('.toStart').on('click', function () {
+        $wrap.find('.toStart').on('click', function() {
             var item = $(this).data('item');
             // Animate a particular item to the start of the frame.
             // If no item is provided, the whole content will be animated.
@@ -48,7 +48,7 @@
         });
 
         // To Center button
-        $wrap.find('.toCenter').on('click', function () {
+        $wrap.find('.toCenter').on('click', function() {
             var item = $(this).data('item');
             // Animate a particular item to the center of the frame.
             // If no item is provided, the whole content will be animated.
@@ -56,7 +56,7 @@
         });
 
         // To End button
-        $wrap.find('.toEnd').on('click', function () {
+        $wrap.find('.toEnd').on('click', function() {
             var item = $(this).data('item');
             // Animate a particular item to the end of the frame.
             // If no item is provided, the whole content will be animated.
@@ -64,16 +64,13 @@
         });
 
         // Add item
-        $wrap.find('.add').on('click', function () {
+        $wrap.find('.add').on('click', function() {
             $frame.sly('add', '<li>' + $slidee.children().length + '</li>');
         });
 
         // Remove item
-        $wrap.find('.remove').on('click', function () {
+        $wrap.find('.remove').on('click', function() {
             $frame.sly('remove', -1);
         });
     }());
-
-    
-   
 });

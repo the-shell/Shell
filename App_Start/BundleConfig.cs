@@ -13,8 +13,6 @@ namespace Shell
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                "~/Scripts/sly.js",
-                "~/Scripts/horizontal.js",
                 "~/Scripts/jquery.validate*"
                 ));
 
@@ -28,6 +26,11 @@ namespace Shell
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/scriptsOf").Include(
+                "~/Scripts/sly.js",
+                "~/Scripts/horizontal.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
