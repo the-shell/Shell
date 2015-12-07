@@ -18,19 +18,7 @@ namespace Shell.Models
 
         public double Price { get; set; }
 
-        public virtual ICollection<Cart> Orders
-        {
-            get
-            {
-                if (_orders == null)
-                {
-                    _orders = new Collection<Cart>();
-                }
-                return _orders;
-            }
-            set { _orders = value; }
-        }
-        private ICollection<Cart> _orders;
+        public Organisation Organisation { get; set; }
 
         public Category Category { get; set; }
 

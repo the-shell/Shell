@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using Shell.Models;
+using Shell.ViewModels.Organisation;
 using Shell.ViewModels.Product;
 
 namespace Shell.DAL
@@ -56,6 +57,24 @@ namespace Shell.DAL
             IEnumerable<Product> latestListings = context.Products.OrderByDescending(p => p.DateListed).Take(15);
 
             return latestListings;
+        }
+
+        public int CreateOrganisation(CreateVM model)
+        {
+            Organisation o = new Organisation
+            {
+                Name = model.Name
+            };
+
+
+            Organisation org = context.Organisations.Add(o);
+            context.SaveChanges();
+            return org.Id;
+        }
+
+        public Organisation GetOrganisation(int orgId)
+        {
+            return context.Organisations.Where(p => p.Id == orgId).First();
         }
     }
 }

@@ -1,14 +1,6 @@
-﻿
-<label onclick="change(this)">
-    <input type="radio" name="radio_button"/>
-    <img src="unadslgundfguh"/>
-</label>
+﻿<form id="test">
+    <input type="file" name="file_upload" multiple id="file_upload" onchange="printFiles(this)" />
+</form>
 
-<script>
-    function change(parentNode) {
-        for (var i = 0; i < parentNode.childNodes.length; i++) {
-            console.log(i);
-            console.log(parentNode.childNodes[i].src);
-        }  
-    }
-</script>
+
+<script src="~/Scripts/site.js"/>

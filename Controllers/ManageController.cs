@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -70,7 +71,8 @@ namespace Shell.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                NickName = UserManager.FindById(userId).NickName
             };
             return View(model);
         }
@@ -382,6 +384,16 @@ namespace Shell.Controllers
             Error
         }
 
-#endregion
+        #endregion
+
+
+        public ActionResult GetUserOrganisations()
+        {
+            List<string> orgs = new List<string> {"Buckies", "Alexs"};
+            return Json(orgs, JsonRequestBehavior.AllowGet);
+        }
+
     }
+
+   
 }

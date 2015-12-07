@@ -100,32 +100,47 @@
     }
 
     function submitCreateForm() {
-        var form = document.forms["create_form"];
-        var title = form.elements["product_title"];
-        var desc = form.elements["product_desc"];
-        var price = form.elements["product_price"];
-        var category = form.elements["product_cat"];
 
         var product = new Object();
         product.Title = form.elements["product_title"].value;
         product.Description = form.elements["product_desc"].value;
         product.Price = form.elements["product_price"].value;
         product.Category = form.elements["product_cat"].value;
-        product.Files = form.elements["files"].value;
 
+        if (!validateRadio()) {
+            alert("Error");
+        }
+
+        product.Files = form.elements["files"].value;
+        product.DisplayPic = validateRadio();
+        console.log(product.DisplayPic);
         console.log(JSON.stringify(product));
 
-        $.ajax({
+        @*$.ajax({
             url: '@Url.Action("Create", "Store")',
             type: 'POST',
             dataType: 'json',
             data: JSON.stringify(product),
             contentType: "application/json; charset=utf-8"
-        });
+        });*@
+    }
+
+    function validateRadio() {
+        
+        var imgList = document.getElementById("img-list").childNodes;
+
+        for (var i = 0; i < imgList.length; i++) {
+            //console.log(imgList[i].childNodes[1].src);
+            if (imgList[i].childNodes[0].checked) {
+                console.log(imgList[i].childNodes[1].src);
+                return imgList[i].childNodes[1].src;
+            }
+        }
+        return false;
     }
 
     function check(parentNode) {
-        console.log(parentNode.childNodes[1].src);
+        validateRadio();
     }
 
     function createRadioImage(e) {
@@ -142,7 +157,6 @@
         label.appendChild(input);
         label.appendChild(img);
         return label;
-
     }
 
 
