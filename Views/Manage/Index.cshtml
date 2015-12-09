@@ -1,11 +1,11 @@
-﻿@model Shell.Models.IndexViewModel
+﻿@model Shell.UI.ViewModels.Manage.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 
-@Html.ActionLink("Create Org", "Create", "Organisation");
+@Html.ActionLink("Create Org", "Create", "Manage");
 
 <div class="col-md-3">
     <div class="card">
@@ -25,13 +25,13 @@
 <div class="col-md-9 card" id="content">
     <div class="content">
         <h4>Change your account settings</h4>
-        <hr />
+        <hr/>
         <dl class="dl-horizontal">
             <dt>Password:</dt>
             <dd>
                 [
                 @if (Model.HasPassword)
-            {
+                {
                     @Html.ActionLink("Change your password", "ChangePassword")
                 }
                 else
@@ -101,11 +101,19 @@
             <dd>@Model.NickName</dd>
         </dl>
     </div>
-    
+
 </div>
 
+<div>
+    @foreach (var o in this.Model.OrgNames)
+    {
+        <p>@o</p>
+    }
+</div>
+
+
 <script>
-    function showOrganisations() {
+    @*function displayOrganisationsView() {
 
         $.ajax({
             type: 'GET',
@@ -129,5 +137,5 @@
             
         }
 
-    }
+    }*@
 </script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,24 +8,37 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Shell.DAL;
 using Shell.Models;
+using Shell.Models.Repository;
+using Shell.Models.Services;
+using Shell.UI.ViewModels.Manage;
+using Shell.Controllers;
 
-namespace Shell.Controllers
+namespace Shell.UI.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly OrganisationRepository _repository;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, OrganisationRepository repository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+
+            if (repository == null)
+            {
+                 throw new ArgumentNullException("repo");
+            }
+
+            this._repository = repository;
         }
 
         public ApplicationSignInManager SignInManager
@@ -74,6 +88,15 @@ namespace Shell.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 NickName = UserManager.FindById(userId).NickName
             };
+
+            var organisationService = new OrganisationService(this._repository);
+
+            var orgs = organisationService.GetOrganisations(userId);
+
+            foreach (var org in orgs)
+            {
+                model.OrgNames.Add(org.Name);
+            }
             return View(model);
         }
 
@@ -387,12 +410,10 @@ namespace Shell.Controllers
         #endregion
 
 
-        public ActionResult GetUserOrganisations()
+        public ActionResult Create()
         {
-            List<string> orgs = new List<string> {"Buckies", "Alexs"};
-            return Json(orgs, JsonRequestBehavior.AllowGet);
+            return View();
         }
-
     }
 
    

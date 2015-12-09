@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,19 @@ namespace Shell.Models
     {
         public string NickName { get; set; }
 
-        public virtual ICollection<Organisation> Organisations { get; set; }
+        public virtual ICollection<Organisation> Organisations
+        {
+            get
+            {
+                if (_organisations == null)
+                {
+                    _organisations = new Collection<Organisation>();
+                }
+                return _organisations;
+            }
+            set { _organisations = value; }
+        }
+        private ICollection<Organisation> _organisations;
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -23,24 +36,4 @@ namespace Shell.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("StoreConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-
-        public System.Data.Entity.DbSet<Shell.Models.Product> Products { get; set; }
-
-        public DbSet<Cart> Carts { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
-
-        public DbSet<Organisation> Organisations { get; set; }
-    }
 }
