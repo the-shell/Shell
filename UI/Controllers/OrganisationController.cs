@@ -31,6 +31,7 @@ namespace Shell.UI.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -42,6 +43,7 @@ namespace Shell.UI.Controllers
             var organisationService = new OrganisationService(this._repository);
 
             int orgId = organisationService.CreateOrganisation(model);
+
             return RedirectToAction("Details", new { id = orgId });
         }
 

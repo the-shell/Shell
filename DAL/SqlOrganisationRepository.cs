@@ -13,6 +13,13 @@ namespace Shell.DAL
     {
         private readonly ApplicationDbContext _context;
 
+        public SqlOrganisationRepository(ApplicationDbContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException();
+            this._context = context;
+        }
+
         public override IEnumerable<Organisation> GetOrganisations()
         {
             return

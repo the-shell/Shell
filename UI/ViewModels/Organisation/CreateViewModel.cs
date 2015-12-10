@@ -7,6 +7,8 @@ namespace Shell.UI.ViewModels.Organisation
 {
     public class CreateViewModel
     {
+        public CreateViewModel() { }
+
         public string Name { get; set; }
     }
 }

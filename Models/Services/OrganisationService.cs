@@ -6,9 +6,11 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Shell.Models.Repository;
 using Shell.UI.ViewModels.Organisation;
+using System.Web.Mvc;
 
 namespace Shell.Models.Services
 {
+    
     public class OrganisationService
     {
         private readonly OrganisationRepository _repository;
@@ -52,6 +54,10 @@ namespace Shell.Models.Services
         public DetailsViewModel GetOrganisation(int id)
         {
             var org = this._repository.GetOrganisationById(id);
+            return new DetailsViewModel
+            {
+                Name = org.Name
+            };
         }
     }
 }
