@@ -74,7 +74,11 @@ namespace Shell.App_Start
 
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
             kernel.Bind<OrganisationService>().ToSelf().InRequestScope();
+
+            //ToDo kernel.Bind<OrganisationRepository>().To<SqlOrganisationRepository>().InRequestScope().Named("Organisation");
+            //when implementing ProductRepo
             kernel.Bind<OrganisationRepository>().To<SqlOrganisationRepository>().InRequestScope();
+            
             
             kernel.Bind<IUserStore<ApplicationUser>>()
                 .To<UserStore<ApplicationUser>>()

@@ -10,9 +10,11 @@ using Shell.Models;
 using Shell.Models.Repository;
 using Shell.Models.Services;
 using Shell.UI.ViewModels.Organisation;
+using Shell.Utils;
 
 namespace Shell.UI.Controllers
 {
+    [OrganisationOwner]
     public class OrganisationController : Controller
     {
         private readonly OrganisationRepository _repository;

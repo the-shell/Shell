@@ -24,10 +24,6 @@ namespace Shell.UI.Controllers
         private ApplicationUserManager _userManager;
         private readonly OrganisationRepository _repository;
 
-        public ManageController()
-        {
-        }
-
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, OrganisationRepository repository)
         {
             UserManager = userManager;
