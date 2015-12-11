@@ -19,6 +19,7 @@ namespace Shell.App_Start
     using System.Configuration;
     using Models;
     using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
 
     public static class NinjectWebCommon 
     {
@@ -83,6 +84,10 @@ namespace Shell.App_Start
             kernel.Bind<IUserStore<ApplicationUser>>()
                 .To<UserStore<ApplicationUser>>()
                 .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
+
+            kernel.Bind<IAuthenticationManager>().ToMethod(
+                c =>
+                    HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
         }
         
     }

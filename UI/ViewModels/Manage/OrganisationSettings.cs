@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Shell.UI.ViewModels.Organisation
+namespace Shell.UI.ViewModels.Manage
 {
-    public class CreateViewModel
+    public class OrganisationSettings
     {
         public string Name { get; set; }
     }

@@ -1,0 +1,24 @@
+﻿@model IQueryable<Shell.UI.ViewModels.Manage.OrganisationSettings>
+
+@{ 
+    if(Model != null)
+    {
+        foreach(var org in Model)
+        {
+            <p>
+                @org.Name
+            </p>
+        }
+        <div class="selection">
+            <button onclick="showOrganisationCreate()">Create an organisation</button>
+        </div>
+    }
+    else
+    {
+        <p>You have no organisations yet</p>
+        <div class="selection">
+            <button onclick="showOrganisationCreate()">Create one now</button>
+        </div>
+    }
+
+}

@@ -33,22 +33,6 @@ namespace Shell.UI.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "Name")] CreateViewModel model)
-        {
-            var organisationService = new OrganisationService(this._repository);
-
-            int orgId = organisationService.CreateOrganisation(model);
-
-            return RedirectToAction("Details", new { id = orgId });
-        }
-
         public ActionResult Details(int id)
         {
             var organisationService = new OrganisationService(this._repository);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -8,12 +6,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Shell.DAL;
 using Shell.Models;
 using Shell.Models.Repository;
 using Shell.Models.Services;
 using Shell.UI.ViewModels.Manage;
 using Shell.Controllers;
+using Shell.UI.ViewModels.Organisation;
 
 namespace Shell.UI.Controllers
 {
@@ -37,31 +35,6 @@ namespace Shell.UI.Controllers
             this._repository = repository;
         }
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -82,18 +55,35 @@ namespace Shell.UI.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                NickName = UserManager.FindById(userId).NickName
             };
+            
+            return View(model);
+        }
 
+        public ActionResult Settings()
+        {
+            return PartialView("_Settings");
+        }
+
+        public ActionResult Organisations()
+        {
+            return PartialView("_Organisations");
+        }
+
+        [HttpGet]
+        public ActionResult CreateOrganisation()
+        {
+            return PartialView("_CreateOrganisation");
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
+        {
             var organisationService = new OrganisationService(this._repository);
 
-            var orgs = organisationService.GetOrganisations(userId);
+            int orgId = organisationService.CreateOrganisation(model);
 
-            foreach (var org in orgs)
-            {
-                model.OrgNames.Add(org.Name);
-            }
-            return View(model);
+            return RedirectToAction("Organisation", "Details", new { id = orgId });
         }
 
         //
@@ -406,9 +396,30 @@ namespace Shell.UI.Controllers
         #endregion
 
 
-        public ActionResult Create()
+        
+
+        public ApplicationUserManager UserManager
         {
-            return View();
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
         }
     }
 

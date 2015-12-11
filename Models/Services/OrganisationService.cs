@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Shell.Models.Repository;
 using Shell.UI.ViewModels.Organisation;
 using System.Web.Mvc;
+using Shell.UI.ViewModels.Manage;
 
 namespace Shell.Models.Services
 {
@@ -36,7 +37,7 @@ namespace Shell.Models.Services
                 select o; 
         }
 
-        public int CreateOrganisation(CreateViewModel model)
+        public int CreateOrganisation(CreateOrganisationViewModel model)
         {
             if (model == null)
             {
