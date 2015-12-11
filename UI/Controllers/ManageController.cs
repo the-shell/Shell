@@ -59,6 +59,8 @@ namespace Shell.UI.Controllers
             
             return View(model);
         }
+        
+        #region Partials
 
         public ActionResult Settings()
         {
@@ -76,6 +78,7 @@ namespace Shell.UI.Controllers
             return PartialView("_CreateOrganisation");
         }
 
+        
         [HttpPost]
         public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
         {
@@ -83,8 +86,11 @@ namespace Shell.UI.Controllers
 
             int orgId = organisationService.CreateOrganisation(model);
 
-            return RedirectToAction("Organisation", "Details", new { id = orgId });
+            //Performance considerations - however creating an organisation is semi-rare
+            return Json(Url.Action("Details", "Organisation", new { id = orgId }));
         }
+
+        #endregion
 
         //
         // POST: /Manage/RemoveLogin

@@ -77,8 +77,13 @@
             type: 'POST',
             url: '@Url.Action("CreateOrganisation")',
             dataType: 'JSON',
-            data: org
+            data: org,
+            success: function (result) {
+                console.log(result);
+                window.location.href = result;
+            }
         });
+        
     }
 
     function createOrganisationPost() {
