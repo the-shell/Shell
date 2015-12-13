@@ -33,13 +33,13 @@ namespace Shell.UI.Controllers
             return View();
         }
 
-        //public ActionResult Details(int id)
-        //{
-        //    var organisationService = new OrganisationService(this._repository);
+        public ActionResult Details(int id)
+        {
+            var organisationService = new OrganisationService(this._repository);
 
-        //    DetailsViewModel o = organisationService.GetOrganisation(id);
+            DetailsViewModel o = new OrganisationFactory().GetViewModel(organisationService.GetOrganisation(id));
 
-        //    return View(o);
-        //}
+            return View(o);
+        }
     }
 }

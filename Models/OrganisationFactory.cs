@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Shell.UI.ViewModels.Manage;
 using Microsoft.AspNet.Identity;
+using Shell.UI.ViewModels.Organisation;
 
 namespace Shell.Models
 {
@@ -17,6 +18,14 @@ namespace Shell.Models
             _organisation = new Organisation(model.Name, UserId);
             
             return _organisation;
+        }
+
+        public DetailsViewModel GetViewModel(Organisation organisation)
+        {
+            return new DetailsViewModel
+            {
+                Name = organisation.Name,
+            };
         }
     }
 }

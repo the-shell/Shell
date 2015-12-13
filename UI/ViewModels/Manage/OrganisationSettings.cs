@@ -8,5 +8,7 @@ namespace Shell.UI.ViewModels.Manage
     public class OrganisationSettings
     {
         public string Name { get; set; }
+
+        public int Id { get; set; }
     }
 }

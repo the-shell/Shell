@@ -79,7 +79,8 @@ namespace Shell.UI.Controllers
             {
                 model.Add(new OrganisationSettings
                 {
-                    Name = x.Name
+                    Name = x.Name,
+                    Id = x.Id
                 });
             }
             return PartialView("_Organisations", model);
@@ -99,9 +100,9 @@ namespace Shell.UI.Controllers
 
             var org = new OrganisationFactory().Create(model);
 
-            organisationService.CreateOrganisation(org);
+            int id = organisationService.CreateOrganisation(org);
 
-            return Json(new { id = 1, value = "new" });
+            return Json(new { result = "Redirect", url = Url.Action("Details", "Organisation", new { id = id }) });
         }
 
         #endregion

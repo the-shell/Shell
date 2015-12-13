@@ -34,7 +34,6 @@
             type: 'GET',
             url: '@Url.Action("Settings")',
             success: function (result) {
-                alert(result);
                 var content = document.getElementById("content");
                 content.innerHTML = result;
             },
@@ -72,19 +71,18 @@
         });
     }
 
-    function test (r) {
-        console.log(r);
-    }
-
     function postOrganisation(org) {
+        console.log(org);
         $.ajax({
             type: 'POST',
             url: '@Url.Action("CreateOrganisation")',
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(org),
-            success: showOrganisations(),
-            
+            success: function (response) {
+                if (response.result == 'Redirect')
+                    window.location = response.url;
+            },
             error: function (result){
                 console.log(result);
             }

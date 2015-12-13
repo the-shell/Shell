@@ -8,5 +8,6 @@ namespace Shell.Models.Repository
 {
     public interface OrganisationRepository : IRepository<Organisation, int>
     {
+        
     }
 }
