@@ -32,33 +32,24 @@ namespace Shell.Models.Services
                 throw new ArgumentNullException("user");
             }
             return
-                from o in this._repository.GetOrganisations()
+                from o in this._repository.Get()
                 where o.OwnerId == userId
                 select o; 
         }
 
-        public int CreateOrganisation(CreateOrganisationViewModel model)
+        public int CreateOrganisation(Organisation model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException("model");
             }
-            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-
-            return this._repository.CreateOrganisation(new Organisation
-            {
-                Name = model.Name,
-                OwnerId = UserId
-            });
+            return this._repository.Create(model);
         }
 
-        public DetailsViewModel GetOrganisation(int id)
+        public Organisation GetOrganisation(int id)
         {
-            var org = this._repository.GetOrganisationById(id);
-            return new DetailsViewModel
-            {
-                Name = org.Name
-            };
+            var org = this._repository.GetById(id);
+            return org;
         }
     }
 }

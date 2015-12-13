@@ -53,7 +53,7 @@
                 content.innerHTML = result;
             },
             error: function(result) {
-                alert("error");
+                alert(result.responseText);
             }
         });
     }
@@ -72,18 +72,24 @@
         });
     }
 
+    function test (r) {
+        console.log(r);
+    }
+
     function postOrganisation(org) {
         $.ajax({
             type: 'POST',
             url: '@Url.Action("CreateOrganisation")',
             dataType: 'JSON',
-            data: org,
-            success: function (result) {
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(org),
+            success: showOrganisations(),
+            
+            error: function (result){
                 console.log(result);
-                window.location.href = result;
             }
+            
         });
-        
     }
 
     function createOrganisationPost() {

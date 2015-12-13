@@ -20,24 +20,35 @@ namespace Shell.DAL
             this._context = context;
         }
 
-        public override IEnumerable<Organisation> GetOrganisations()
+        public Organisation GetById(int id)
+        {
+            return 
+                _context.Organisations.Where(o => o.Id == id).First();
+
+        }
+
+        public IQueryable<Organisation> Get()
         {
             return
                 from o in this._context.Organisations
                 select o;
         }
 
-        public override int CreateOrganisation(Organisation model)
+        int IRepository<Organisation, int>.Create(Organisation entity)
         {
-            var o = _context.Organisations.Add(model);
+            var o = _context.Organisations.Add(entity);
             _context.SaveChanges();
             return o.Id;
         }
 
-        //Todo refactor this and change GetOrganisations in OrganisationService to filter by id
-        public override Organisation GetOrganisationById(int id)
+        public void Update(Organisation entity)
         {
-           return _context.Organisations.Where(o => o.Id == id).First();
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Organisation entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

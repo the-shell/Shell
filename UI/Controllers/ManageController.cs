@@ -12,6 +12,8 @@ using Shell.Models.Services;
 using Shell.UI.ViewModels.Manage;
 using Shell.Controllers;
 using Shell.UI.ViewModels.Organisation;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Shell.UI.Controllers
 {
@@ -69,7 +71,18 @@ namespace Shell.UI.Controllers
 
         public ActionResult Organisations()
         {
-            return PartialView("_Organisations");
+            var organisationService = new OrganisationService(this._repository);
+            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var orgs = organisationService.GetOrganisations(UserId);
+            List<OrganisationSettings> model = new List<OrganisationSettings>();
+            foreach(var x in orgs)
+            {
+                model.Add(new OrganisationSettings
+                {
+                    Name = x.Name
+                });
+            }
+            return PartialView("_Organisations", model);
         }
 
         [HttpGet]
@@ -78,16 +91,17 @@ namespace Shell.UI.Controllers
             return PartialView("_CreateOrganisation");
         }
 
-        
+
         [HttpPost]
         public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
         {
             var organisationService = new OrganisationService(this._repository);
 
-            int orgId = organisationService.CreateOrganisation(model);
+            var org = new OrganisationFactory().Create(model);
 
-            //Performance considerations - however creating an organisation is semi-rare
-            return Json(Url.Action("Details", "Organisation", new { id = orgId }));
+            organisationService.CreateOrganisation(org);
+
+            return Json(new { id = 1, value = "new" });
         }
 
         #endregion

@@ -6,13 +6,7 @@ using Shell.UI.ViewModels.Organisation;
 
 namespace Shell.Models.Repository
 {
-    public abstract class OrganisationRepository
+    public interface OrganisationRepository : IRepository<Organisation, int>
     {
-        public abstract IEnumerable<Organisation> GetOrganisations();
-
-        public abstract Organisation GetOrganisationById(int id);
-
-        public abstract int CreateOrganisation(Organisation model);
-
     }
 }

@@ -10,9 +10,16 @@ namespace Shell.Models
     {
         public int Id { get; set; }
 
-        public string OwnerId { get; set; }
-
         public string Name { get; set; }
 
+        public string OwnerId { get; set; }
+
+        public Organisation() { }
+
+        public Organisation(string Name, string OwnerId)
+        {
+            this.Name = Name;
+            this.OwnerId = OwnerId;
+        }
     }
 }
