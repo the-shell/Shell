@@ -11,35 +11,64 @@ using Shell.Models.Repository;
 using Shell.Models.Services;
 using Shell.UI.ViewModels.Organisation;
 using Shell.Utils;
+using System.Diagnostics;
 
 namespace Shell.UI.Controllers
 {
-    [OrganisationOwner]
+    
     public class OrganisationController : Controller
     {
-        private readonly OrganisationRepository _repository;
+        private readonly IOrganisationService _organisationService;
+        private readonly IProductService _productService;
 
-        public OrganisationController(OrganisationRepository repository)
+        public OrganisationController(IOrganisationService organisationService, IProductService productService)
         {
-            if (repository == null)
+            if (organisationService == null)
             {
-                throw new ArgumentNullException("repo");
+                throw new ArgumentNullException("organisation repo");
             }
-            this._repository = repository;
+            if (productService == null)
+            {
+                throw new ArgumentNullException("product repo");
+            }
+            this._organisationService = organisationService;
+            this._productService = productService;
         }
         // GET: Organisation
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            Session["orgId"] = id;
+
+            var products = this._productService.GetProducts(id);
+
             return View();
         }
 
         public ActionResult Details(int id)
         {
-            var organisationService = new OrganisationService(this._repository);
+            Debug.WriteLine(id);
+            //var productList = this._productService.GetProducts(id);
 
-            DetailsViewModel o = new OrganisationFactory().GetViewModel(organisationService.GetOrganisation(id));
+            //DetailsViewModel o = new OrganisationFactory().GetViewModel(organisationService.GetOrganisation(id));
 
-            return View(o);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "Title,Description,Price")] CreateViewModel model)
+        {
+            Product p = model;
+            p.Organisation = this._organisationService.GetOrganisation((int) Session["orgId"]);
+
+            this._productService.CreateProduct(p);
+
+            return View("Index");
         }
     }
 }

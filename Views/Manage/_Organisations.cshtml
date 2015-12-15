@@ -7,7 +7,7 @@
         {
             <p>
                 @org.Name
-                @Html.ActionLink(org.Name, "Details", "Organisation", org.Id, null);
+                @Html.ActionLink(org.Name, "Index", "Organisation", new { id = org.Id }, null);
             </p>
         }
         <div class="selection">

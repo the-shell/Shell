@@ -7,7 +7,6 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Shell.Models;
 using Shell.ViewModels.Product;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Shell.DAL

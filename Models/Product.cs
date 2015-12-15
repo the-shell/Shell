@@ -20,10 +20,23 @@ namespace Shell.Models
 
         public Organisation Organisation { get; set; }
 
-        public Category Category { get; set; }
+        public DateTime DateListed
+        {
+            get
+            {
+                return _dateListed;
+            }
+            set
+            {
+                this._dateListed = DateTime.Now;
+            }
+        }
+        private DateTime _dateListed { get; set; }
 
-        public DateTime DateListed { get; set; }
+        //public Category Category { get; set; }
 
-        public virtual ICollection<ProductImage> Images { get; set; }
+        //public DateTime DateListed { get; set; }
+
+        //public virtual ICollection<ProductImage> Images { get; set; }
     }
 }

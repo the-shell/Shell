@@ -11,45 +11,35 @@ using Shell.UI.ViewModels.Manage;
 
 namespace Shell.Models.Services
 {
-    
-    public class OrganisationService
-    {
-        private readonly OrganisationRepository _repository;
 
-        public OrganisationService(OrganisationRepository repository)
+    public class OrganisationService : IOrganisationService
+    {
+        private readonly IRepository<Organisation> _repository;
+
+        public OrganisationService(IRepository<Organisation> repository)
         {
-            if (repository == null)
+            if(repository == null)
             {
                 throw new ArgumentNullException("repo");
             }
             this._repository = repository;
         }
 
-        public IEnumerable<Organisation> GetOrganisations(string userId)
-        {
-            if (userId == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            return
-                from o in this._repository.Get()
-                where o.OwnerId == userId
-                select o; 
-        }
-
         public int CreateOrganisation(Organisation model)
         {
-            if (model == null)
-            {
-                throw new ArgumentNullException("model");
-            }
             return this._repository.Create(model);
         }
 
         public Organisation GetOrganisation(int id)
         {
-            var org = this._repository.GetById(id);
-            return org;
+            return this._repository.GetById(id);
+        }
+
+        public List<Organisation> GetOrganisations(string userId)
+        {
+            return 
+                this._repository.Get()
+                .Where(o =>o.OwnerId == userId).ToList();
         }
     }
 }

@@ -22,19 +22,19 @@ namespace Shell.UI.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly OrganisationRepository _repository;
+        private readonly IOrganisationService _service;
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, OrganisationRepository repository)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IOrganisationService service)
         {
             UserManager = userManager;
             SignInManager = signInManager;
 
-            if (repository == null)
+            if (service == null)
             {
                  throw new ArgumentNullException("repo");
             }
 
-            this._repository = repository;
+            this._service = service;
         }
 
         // GET: /Manage/Index
@@ -71,9 +71,9 @@ namespace Shell.UI.Controllers
 
         public ActionResult Organisations()
         {
-            var organisationService = new OrganisationService(this._repository);
-            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var orgs = organisationService.GetOrganisations(UserId);
+
+            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var orgs = _service.GetOrganisations(userId);
             List<OrganisationSettings> model = new List<OrganisationSettings>();
             foreach(var x in orgs)
             {
@@ -96,11 +96,11 @@ namespace Shell.UI.Controllers
         [HttpPost]
         public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
         {
-            var organisationService = new OrganisationService(this._repository);
+            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
-            var org = new OrganisationFactory().Create(model);
+            Organisation o = new Organisation(model.Name, userId);
 
-            int id = organisationService.CreateOrganisation(org);
+            int id = _service.CreateOrganisation(o);
 
             return Json(new { result = "Redirect", url = Url.Action("Details", "Organisation", new { id = id }) });
         }

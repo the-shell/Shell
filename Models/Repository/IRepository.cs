@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Shell.UI.ViewModels.Organisation;
 
 namespace Shell.Models.Repository
 {
-    public interface IRepository<TEntity, in TKey> where TEntity : class
+    public interface IRepository<TEntity>
     {
-        TEntity GetById(TKey id);
+        TEntity GetById(int id);
+
         IQueryable<TEntity> Get();
+
         int Create(TEntity entity);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
     }
 }

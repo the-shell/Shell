@@ -13,7 +13,8 @@ namespace Shell
                 "~/UI/Scripts/jquery-{version}.js",
                 "~/UI/Scripts/jquery-ui-{version}.js",
                 "~/UI/Scripts/jquery.unobtrusive-ajax.min.js",
-                "~/UI/Scripts/jquery.validate*"
+                "~/UI/Scripts/jquery.validate*",
+                "~/UI/Scripts/knockout-3.4.0.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

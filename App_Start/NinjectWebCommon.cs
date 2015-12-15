@@ -74,13 +74,13 @@ namespace Shell.App_Start
             //kernel.Load(Assembly.GetExecutingAssembly());
 
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
-            kernel.Bind<OrganisationService>().ToSelf().InRequestScope();
 
-            //ToDo kernel.Bind<OrganisationRepository>().To<SqlOrganisationRepository>().InRequestScope().Named("Organisation");
-            //when implementing ProductRepo
-            kernel.Bind<OrganisationRepository>().To<SqlOrganisationRepository>().InRequestScope();
-            
-            
+            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
+            kernel.Bind<IRepository<Organisation>>().To<SqlOrganisationRepository>().InRequestScope();
+
+            kernel.Bind<IProductService>().To<ProductService>().InRequestScope();
+            kernel.Bind<IRepository<Product>>().To<SqlProductRepository>().InRequestScope();
+
             kernel.Bind<IUserStore<ApplicationUser>>()
                 .To<UserStore<ApplicationUser>>()
                 .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
@@ -88,6 +88,7 @@ namespace Shell.App_Start
             kernel.Bind<IAuthenticationManager>().ToMethod(
                 c =>
                     HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+            
         }
         
     }
