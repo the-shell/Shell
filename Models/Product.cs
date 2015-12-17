@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shell.Models
 {
@@ -18,25 +20,17 @@ namespace Shell.Models
 
         public double Price { get; set; }
 
-        public Organisation Organisation { get; set; }
+        public virtual Organisation Organisation { get; set; }
 
-        public DateTime DateListed
-        {
-            get
-            {
-                return _dateListed;
-            }
-            set
-            {
-                this._dateListed = DateTime.Now;
-            }
-        }
-        private DateTime _dateListed { get; set; }
+        //[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //public DateTime DateListed { get; set; }
 
         //public Category Category { get; set; }
 
         //public DateTime DateListed { get; set; }
 
         //public virtual ICollection<ProductImage> Images { get; set; }
+
+        public int This { get; set; }
     }
 }

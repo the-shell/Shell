@@ -23,5 +23,6 @@ namespace Shell.DAL
         public DbSet<Organisation> Organisations { get; set; }
 
         public DbSet<Product> Products { get; set; }
+        
     }
 }
