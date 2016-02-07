@@ -12,7 +12,6 @@ namespace Shell.App_Start
     using Ninject.Web.Common;
     using System.Reflection;
     using Models.Repository;
-    using Models.Services;
     using DAL;
     using System.Data.Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -75,11 +74,10 @@ namespace Shell.App_Start
 
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
 
-            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
-            kernel.Bind<IRepository<Organisation>>().To<SqlOrganisationRepository>().InRequestScope();
 
-            kernel.Bind<IProductService>().To<ProductService>().InRequestScope();
-            kernel.Bind<IRepository<Product>>().To<SqlProductRepository>().InRequestScope();
+            kernel.Bind<IRepository<Organisation>>().To<EFRepository<Organisation>>().InRequestScope();
+
+            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
 
             kernel.Bind<IUserStore<ApplicationUser>>()
                 .To<UserStore<ApplicationUser>>()

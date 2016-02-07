@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Shell.UI.ViewModels.Organisation;
+using System.Linq.Expressions;
 
 namespace Shell.Models.Repository
 {
@@ -10,8 +11,10 @@ namespace Shell.Models.Repository
     {
         TEntity GetById(int id);
 
-        IQueryable<TEntity> Get();
+        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
 
-        int Create(TEntity entity);
+        void Insert(TEntity entity);
+
+        void Delete(TEntity entity);
     }
 }

@@ -15,25 +15,25 @@ namespace Shell.UI.ViewModels.Organisation
 
         public double Price { get; set; }
 
-        public static implicit operator CreateViewModel(Product product)
-        {
-            var vm = new CreateViewModel
-            {
-                Title = product.Title,
-                Description = product.Description,
-                Price = product.Price
-            };
-            return vm;
-        }
+        //public static implicit operator CreateViewModel(Product product)
+        //{
+        //    var vm = new CreateViewModel
+        //    {
+        //        Title = product.Title,
+        //        Description = product.Description,
+        //        Price = product.Price
+        //    };
+        //    return vm;
+        //}
 
-        public static implicit operator Product(CreateViewModel vm)
-        {
-            var product = new Product();
-            product.Title = vm.Title;
-            product.Description = vm.Description;
-            product.Price = vm.Price;
+        //public static implicit operator Product(CreateViewModel vm)
+        //{
+        //    var product = new Product();
+        //    product.Title = vm.Title;
+        //    product.Description = vm.Description;
+        //    product.Price = vm.Price;
             
-            return product;
-        }
+        //    return product;
+        //}
     }
 }

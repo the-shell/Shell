@@ -14,23 +14,12 @@ namespace Shell.Models
 
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
         public double Price { get; set; }
 
-        public virtual Organisation Organisation { get; set; }
-
-        //[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        //public DateTime DateListed { get; set; }
-
-        //public Category Category { get; set; }
-
-        //public DateTime DateListed { get; set; }
-
-        //public virtual ICollection<ProductImage> Images { get; set; }
-
-        public int This { get; set; }
+        public DateTime DateListed { get; set; }
     }
 }

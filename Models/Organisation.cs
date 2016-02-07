@@ -12,14 +12,8 @@ namespace Shell.Models
 
         public string Name { get; set; }
 
-        public string OwnerId { get; set; }
+        public IQueryable<Product> Products { get; set; }
 
-        public Organisation() { }
-
-        public Organisation(string Name, string OwnerId)
-        {
-            this.Name = Name;
-            this.OwnerId = OwnerId;
-        }
+        public DateTime DateCreated { get; set; }
     }
 }

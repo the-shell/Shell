@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Shell.Models;
 using Shell.Models.Repository;
-using Shell.Models.Services;
 using Shell.UI.ViewModels.Manage;
 using Shell.Controllers;
 using Shell.UI.ViewModels.Organisation;
@@ -22,19 +21,12 @@ namespace Shell.UI.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly IOrganisationService _service;
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IOrganisationService service)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
 
-            if (service == null)
-            {
-                 throw new ArgumentNullException("repo");
-            }
-
-            this._service = service;
         }
 
         // GET: /Manage/Index
@@ -69,22 +61,22 @@ namespace Shell.UI.Controllers
             return PartialView("_Settings");
         }
 
-        public ActionResult Organisations()
-        {
+        //public ActionResult Organisations()
+        //{
 
-            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var orgs = _service.GetOrganisations(userId);
-            List<OrganisationSettings> model = new List<OrganisationSettings>();
-            foreach(var x in orgs)
-            {
-                model.Add(new OrganisationSettings
-                {
-                    Name = x.Name,
-                    Id = x.Id
-                });
-            }
-            return PartialView("_Organisations", model);
-        }
+        //    string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        //    var orgs = _service.GetOrganisations(userId);
+        //    List<OrganisationSettings> model = new List<OrganisationSettings>();
+        //    foreach(var x in orgs)
+        //    {
+        //        model.Add(new OrganisationSettings
+        //        {
+        //            Name = x.Name,
+        //            Id = x.Id
+        //        });
+        //    }
+        //    return PartialView("_Organisations", model);
+        //}
 
         [HttpGet]
         public ActionResult CreateOrganisation()
@@ -93,17 +85,17 @@ namespace Shell.UI.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
-        {
-            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        //[HttpPost]
+        //public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
+        //{
+        //    string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
-            Organisation o = new Organisation(model.Name, userId);
+        //    Organisation o = new Organisation(model.Name, userId);
 
-            int id = _service.CreateOrganisation(o);
+        //    int id = _service.CreateOrganisation(o);
 
-            return Json(new { result = "Redirect", url = Url.Action("Details", "Organisation", new { id = id }) });
-        }
+        //    return Json(new { result = "Redirect", url = Url.Action("Details", "Organisation", new { id = id }) });
+        //}
 
         #endregion
 

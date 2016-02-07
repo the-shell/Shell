@@ -13,131 +13,131 @@ using Shell.ViewModels.Product;
 
 namespace Shell.Controllers
 {
-    //public class StoreController : Controller
-    //{
-    //    StoreRepository storeRepo = new StoreRepository();
-    //    S3Client S3Client = new S3Client();
+    public class StoreController : Controller
+    {
+        //StoreRepository storeRepo = new StoreRepository();
+        //S3Client S3Client = new S3Client();
 
-    //    // GET: Store
-    //    public ActionResult Index()
-    //    {
-    //        ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-    //        var categories = storeRepo.CategoriesWithMostProducts();
-    //        var latestListings = storeRepo.LatestListings();
-    //        foreach (var l in latestListings)
-    //        {
-    //            Debug.WriteLine(string.Format("Title: {0} URL: {1}", l.Title, l.Images.First().URL));
-    //        }
+        //// GET: Store
+        //public ActionResult Index()
+        //{
+        //    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        //    var categories = storeRepo.CategoriesWithMostProducts();
+        //    var latestListings = storeRepo.LatestListings();
+        //    foreach (var l in latestListings)
+        //    {
+        //        Debug.WriteLine(string.Format("Title: {0} URL: {1}", l.Title, l.Images.First().URL));
+        //    }
 
-    //        return View(new StoreFrontViewModel
-    //        {
-    //            Categories = categories,
-    //            LatestListings = latestListings
-    //        });
-    //    }
+        //    return View(new StoreFrontViewModel
+        //    {
+        //        Categories = categories,
+        //        LatestListings = latestListings
+        //    });
+        //}
 
-    //    [Authorize]
-    //    public ActionResult Create()
-    //    {
-    //        return View();
-    //    }
+        //[Authorize]
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-    //    [HttpPost]
-    //    [Authorize]
-    //    public ActionResult Create([Bind(Include = "Title,Description,Price,Category,Files")] CreateProductViewModel model)
-    //    {
-    //        foreach (var file in model.Files)
-    //        {
-    //            Debug.WriteLine(file.FileName);
-    //        }
-            
-    //        string ImageURL;
-    //        if (model.Files != null)
-    //        {
-    //            foreach (var image in model.Files)
-    //            {
-    //                S3Client.PutImage(image);
-    //            }
-                
-    //        }
-            
-    //        Product product = new Product
-    //        {
-    //            Title = model.Title,
-    //            Description = model.Description,
-    //            Price = model.Price,
-    //            Category = new Category
-    //            {
-    //                Name = model.Category
-    //            },
-    //            DateListed = DateTime.Now,
-    //            Images = new List<ProductImage>
-    //            {
-    //                new ProductImage
-    //                {
-    //                    URL = "dummy"
-    //                }
-    //            }
-    //        };
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult Create([Bind(Include = "Title,Description,Price,Category,Files")] CreateProductViewModel model)
+        //{
+        //    foreach (var file in model.Files)
+        //    {
+        //        Debug.WriteLine(file.FileName);
+        //    }
 
-    //        var result = storeRepo.AddNewProduct(product);
+        //    string ImageURL;
+        //    if (model.Files != null)
+        //    {
+        //        foreach (var image in model.Files)
+        //        {
+        //            S3Client.PutImage(image);
+        //        }
 
-    //        if (result)
-    //        {
-    //            return RedirectToAction("Index");
-    //        }
+        //    }
 
-    //        return View("Error");
-    //    }
+        //    Product product = new Product
+        //    {
+        //        Title = model.Title,
+        //        Description = model.Description,
+        //        Price = model.Price,
+        //        Category = new Category
+        //        {
+        //            Name = model.Category
+        //        },
+        //        DateListed = DateTime.Now,
+        //        Images = new List<ProductImage>
+        //        {
+        //            new ProductImage
+        //            {
+        //                URL = "dummy"
+        //            }
+        //        }
+        //    };
 
-    //    public ActionResult Browse()
-    //    {
-    //        return View("Browse", storeRepo.AllProducts().Take(10));
-    //    }
+        //    var result = storeRepo.AddNewProduct(product);
 
-    //    [HttpPost]
-    //    public ActionResult Browse(string searchString)
-    //    {
-    //        var model = storeRepo.AllProducts(searchString).Take(10);
-    //        Debug.WriteLine("Here");
-    //        if (Request.IsAjaxRequest())
-    //        {
-    //            Debug.WriteLine("IsAjax");
-    //            return PartialView("_Listings", model);
-    //        }
+        //    if (result)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
 
-    //        return View("Browse", model);
-    //    }
+        //    return View("Error");
+        //}
 
-    //    public ActionResult Details()
-    //    {
-    //        return View();
-    //    }
+        //public ActionResult Browse()
+        //{
+        //    return View("Browse", storeRepo.AllProducts().Take(10));
+        //}
 
-    //    [HttpPost]
-    //    public ActionResult GetImageResult(List<ImageDt> data)
-    //    {
-    //        //var returnData = new List<object>();
-    //        //foreach (var d in imageArray)
-    //        //{
-    //        //    Debug.WriteLine(d.myData);
-    //        //    returnData.Add(d);
-    //        //}
-            
-    //        //return Json(returnData);
-    //        List<string> urls = new List<string>();
+        //[HttpPost]
+        //public ActionResult Browse(string searchString)
+        //{
+        //    var model = storeRepo.AllProducts(searchString).Take(10);
+        //    Debug.WriteLine("Here");
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        Debug.WriteLine("IsAjax");
+        //        return PartialView("_Listings", model);
+        //    }
 
-    //        foreach (var c in data)
-    //        {
-    //            urls.Add(c.Name);
-    //        }
-                        
-    //        return Json(urls, JsonRequestBehavior.AllowGet);
-    //    }
+        //    return View("Browse", model);
+        //}
 
-    //    public ActionResult Test()
-    //    {
-    //        return View();
-    //    }
-    //}
+        //public ActionResult Details()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public ActionResult GetImageResult(List<ImageDt> data)
+        //{
+        //    //var returnData = new List<object>();
+        //    //foreach (var d in imageArray)
+        //    //{
+        //    //    Debug.WriteLine(d.myData);
+        //    //    returnData.Add(d);
+        //    //}
+
+        //    //return Json(returnData);
+        //    List<string> urls = new List<string>();
+
+        //    foreach (var c in data)
+        //    {
+        //        urls.Add(c.Name);
+        //    }
+
+        //    return Json(urls, JsonRequestBehavior.AllowGet);
+        //}
+
+        //public ActionResult Test()
+        //{
+        //    return View();
+        //}
+    }
 }

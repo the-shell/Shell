@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model Shell.UI.ViewModels.HomeViewModel
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -29,3 +27,8 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+@foreach(var a in Model.OrganisationNames)
+{
+    <div>@a</div>
+}

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Shell.Models.Repository;
+using Shell.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,23 @@ namespace Shell.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IOrganisationService _organisationService;
+
+        public HomeController(IOrganisationService OrganisationService)
+        {
+            if (OrganisationService == null)
+                throw new ArgumentNullException("orgService");
+
+            _organisationService = OrganisationService;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var LatestOrganisations = _organisationService.GetLatestOrganisations();
+            return View(new HomeViewModel
+            {
+                OrganisationNames = LatestOrganisations.Select(x => x.Name).ToList()
+            });
         }
 
         public ActionResult About()
