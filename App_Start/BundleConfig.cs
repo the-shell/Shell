@@ -10,15 +10,15 @@ namespace Shell
         {
             
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(
-                "~/UI/Scripts/jquery-{version}.js",
-                "~/UI/Scripts/jquery-ui-{version}.js",
-                "~/UI/Scripts/jquery.unobtrusive-ajax.min.js",
-                "~/UI/Scripts/jquery.validate*",
-                "~/UI/Scripts/knockout-3.4.0.js"
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                "~/Scripts/jquery.validate*",
+                "~/Scripts/knockout-3.4.0.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                       "~/UI/Scripts/jquery-{version}.js"));
+                       "~/Scripts/jquery-{version}.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
@@ -26,20 +26,20 @@ namespace Shell
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/UI/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/scriptsOf").Include(
-                "~/UI/Scripts/sly.js",
-                "~/UI/Scripts/horizontal.js"
+                "~/Scripts/sly.js",
+                "~/Scripts/horizontal.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/UI/Scripts/bootstrap.js",
-                      "~/UI/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/UI/Content/bootstrap.css",
-                      "~/UI/Content/site.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css"));
         }
     }
 }

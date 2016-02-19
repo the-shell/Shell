@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Shell.Startup))]
-namespace Shell
+[assembly: OwinStartupAttribute(typeof(AuthTest.Startup))]
+namespace AuthTest
 {
     public partial class Startup
     {

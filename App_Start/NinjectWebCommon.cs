@@ -19,6 +19,8 @@ namespace Shell.App_Start
     using Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;
+    using System.Data.SqlClient;
+    using System.Data;
 
     public static class NinjectWebCommon 
     {
@@ -70,22 +72,22 @@ namespace Shell.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //kernel.Load(Assembly.GetExecutingAssembly());
+            kernel.Load(Assembly.GetExecutingAssembly());
 
-            kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<IDbConnection>().To<SqlConnection>()
+                .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
 
+            //kernel.Bind<IRepository<Organisation>>().To<EFRepository<Organisation>>().InRequestScope();
 
-            kernel.Bind<IRepository<Organisation>>().To<EFRepository<Organisation>>().InRequestScope();
+            //kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
 
-            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
+            //kernel.Bind<IUserStore<ApplicationUser>>()
+            //    .To<UserStore<ApplicationUser>>()
+            //    .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
 
-            kernel.Bind<IUserStore<ApplicationUser>>()
-                .To<UserStore<ApplicationUser>>()
-                .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
-
-            kernel.Bind<IAuthenticationManager>().ToMethod(
-                c =>
-                    HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+            //kernel.Bind<IAuthenticationManager>().ToMethod(
+            //    c =>
+            //        HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
             
         }
         
