@@ -61,12 +61,7 @@ namespace Shell.Identity
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    var results = connection.Query<User>("select * from Users where UserName = @UserName", new { UserName = userName });//.SingleOrDefault();
-                    foreach(var a in results)
-                    {
-                        Console.WriteLine(a);
-                    }
-                    return results.FirstOrDefault();
+                    return connection.Query<User>("select * from Users where UserName = @UserName", new { UserName = userName }).SingleOrDefault();
                 }
             });
         }

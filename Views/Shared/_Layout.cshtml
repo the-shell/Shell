@@ -42,6 +42,13 @@
     </div>
 </div>
 <div class="container body-content">
+    @foreach(ModelState state in ViewData.ModelState.Values)
+    {
+        foreach(var a in state.Errors)
+        {
+            <p>@a.ErrorMessage</p>
+        }
+    }
     @RenderBody()
     <hr/>
 </div>

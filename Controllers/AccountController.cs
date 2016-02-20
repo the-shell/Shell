@@ -21,10 +21,7 @@ namespace AuthTest.Controllers
         public AccountController(UserManager<User> userManager)
         {
             this.UserManager = userManager;
-            UserManager.UserValidator = new UserValidator<User>(UserManager)
-            {
-                AllowOnlyAlphanumericUserNames = false
-            };
+            UserManager.UserValidator = new CustomValidator<User>(UserManager);
 
         }
 
@@ -46,6 +43,7 @@ namespace AuthTest.Controllers
             {
                 return View(model);
             }
+
             var result = await UserManager.FindAsync(model.Email, model.Password);
             if (result != null)
             {
@@ -53,6 +51,7 @@ namespace AuthTest.Controllers
                 return RedirectToLocal(returnUrl);
             }
 
+            ModelState.AddModelError("LogOnError", "Email address or password provided is incorrect.");
             return View(model);
         }
 
