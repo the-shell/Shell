@@ -10,7 +10,7 @@ namespace Shell.Services
 {
     public interface IOrganisationService
     {
-        List<OrganisationListViewModel> GetUserOrganisations(string userId);
+        List<OrganisationListViewModel> GetUserOrganisationList(string userId);
         void Create(CreateOrganisationViewModel org);
     }
 }

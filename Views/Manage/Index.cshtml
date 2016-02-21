@@ -25,7 +25,6 @@
 
 <script>
 
-
     function showSettings() {
         $.ajax({
             type: 'GET',
@@ -43,7 +42,7 @@
     function showOrganisations() {
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("Organisations")',
+            url: '@Url.Action("UserOrganisationList")',
             success: function(result) {
                 var content = document.getElementById("content");
                 content.innerHTML = result;

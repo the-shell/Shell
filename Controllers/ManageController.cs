@@ -35,15 +35,13 @@ namespace Shell.Controllers
 
             var model = new ManageViewModel
             {
-                Organisations = _organisationService.GetUserOrganisations(userId)
+                Organisations = _organisationService.GetUserOrganisationList(userId)
             };
 
             foreach(var a in model.Organisations)
             {
                 Debug.WriteLine(a.Name + " " + a.Id + " " + a.RoleName);
             }
-
-
             return View(model);
         }
 
@@ -54,6 +52,12 @@ namespace Shell.Controllers
             return PartialView("_Settings");
         }
 
+        public ActionResult UserOrganisationList()
+        {
+            var userId = User.Identity.GetUserId();
+            var orgs = _organisationService.GetUserOrganisationList(userId);
+            return PartialView("_UserOrganisationList", orgs);
+        }
 
         //[HttpPost]
         //public ActionResult CreateOrganisation(CreateOrganisationViewModel model)

@@ -1,0 +1,36 @@
+﻿@model List<Shell.ViewModels.OrganisationListViewModel>
+
+@{
+    if (Model.Count() != 0)
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Organisation Name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var org in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(org.Name, "Index", "Organisation", new { id = org.Id }, null)</td>
+                        <td>@org.RoleName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="selection">
+            <button onclick="showOrganisationCreate()">Create an organisation</button>
+        </div>
+    }
+    else
+    {
+        <p>You have no organisations yet</p>
+        <div class="selection">
+            <button onclick="showOrganisationCreate()">Create one now</button>
+        </div>
+    }
+
+}
