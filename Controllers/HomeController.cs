@@ -1,32 +1,38 @@
-﻿using Shell.Models.Repository;
-using Shell.UI.ViewModels;
+﻿using Microsoft.AspNet.Identity;
+using Shell.Identity;
+using Shell.Models;
+using Shell.Services;
+using Shell.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Shell.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly IOrganisationService _organisationService;
+        private readonly IOrganisationService _organisationService;
+        private readonly UserManager<User> _userManager;
+        private readonly CustomUserStore _userStore;
 
-        public HomeController()//IOrganisationService OrganisationService)
+        public HomeController(IOrganisationService organisationService, UserManager<User> manager, CustomUserStore store)
         {
-            //if (OrganisationService == null)
-            //    throw new ArgumentNullException("orgService");
-
-            //_organisationService = OrganisationService;
+            _organisationService = organisationService;
+            _userManager = manager;
+            _userStore = store;
         }
 
         public ActionResult Index()
         {
-            //var LatestOrganisations = _organisationService.GetLatestOrganisations();
-            //return View(new HomeViewModel
-            //{
-            //    OrganisationNames = LatestOrganisations.Select(x => x.Name).ToList()
-            //});
+            CreateOrganisationViewModel a = new CreateOrganisationViewModel
+            {
+                Name = "First"
+            };
+            a.UserId = User.Identity.GetUserId();
+            if (User.Identity.IsAuthenticated)
+            {
+                _organisationService.Create(a);
+            }
+            
             return View();
         }
 

@@ -12,15 +12,16 @@ namespace Shell.App_Start
     using Ninject.Web.Common;
     using System.Reflection;
     using Models.Repository;
-    using DAL;
     using System.Data.Entity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Configuration;
-    using Models;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.Owin.Security;
     using System.Data.SqlClient;
     using System.Data;
+    using Services;
+    using Models;
+    using Repository;
+    using DAL;
+    using Identity;
+    using Microsoft.AspNet.Identity;
 
     public static class NinjectWebCommon 
     {
@@ -74,12 +75,13 @@ namespace Shell.App_Start
         {
             kernel.Load(Assembly.GetExecutingAssembly());
 
-            kernel.Bind<IDbConnection>().To<SqlConnection>()
+            kernel.Bind<IUserStore<User>>().To<CustomUserStore>().InRequestScope();
+            kernel.Bind<UserManager<User>>().ToSelf().InRequestScope();
+
+            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
+            kernel.Bind<IOrganisationRepository>().To<OrganisationRepository>().InRequestScope();
+            kernel.Bind<IDbConnectionFactory>().To<SqlConnectionFactory>().InRequestScope()
                 .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
-
-            //kernel.Bind<IRepository<Organisation>>().To<EFRepository<Organisation>>().InRequestScope();
-
-            //kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
 
             //kernel.Bind<IUserStore<ApplicationUser>>()
             //    .To<UserStore<ApplicationUser>>()

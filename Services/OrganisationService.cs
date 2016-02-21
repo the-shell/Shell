@@ -1,33 +1,34 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
+﻿using Shell.Repository;
+using Shell.Services;
+using Shell.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-//namespace Shell.Models.Repository
-//{
-//    public class OrganisationService : IOrganisationService
-//    {
-//        private readonly IRepository<Organisation> _repository;
+namespace Shell.Models.Repository
+{
+    public class OrganisationService : IOrganisationService
+    {
+        private readonly IOrganisationRepository _repository;
 
-//        public OrganisationService(IRepository<Organisation> repository)
-//        {
-//            if (repository == null)
-//                throw new ArgumentNullException("repo");
+        public OrganisationService(IOrganisationRepository repository)
+        {
+            _repository = repository;
+        }
 
-//            _repository = repository;
-//        }
+        public void Create(CreateOrganisationViewModel model)
+        {
+            var org = new Organisation
+            {
+                Name = model.Name
+            };
+            _repository.Insert(org, model.UserId);
+        }
 
-//        public int Create(Organisation organisation)
-//        {
-//            organisation.DateCreated = DateTime.Now;
-//            _repository.Insert(organisation);
-//            return organisation.Id;
-//        }
-
-//        public IEnumerable<Organisation> GetLatestOrganisations()
-//        {
-//            //Todo make return latest
-//            return _repository.Get(o => o.Id != 0).OrderByDescending(d => d.DateCreated).Take(10);
-//        }
-//    }
-//}
+        public List<Organisation> GetUserOrganisations(string userId)
+        {
+            return new List<Organisation>();
+        }
+    }
+}

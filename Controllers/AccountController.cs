@@ -14,7 +14,7 @@ namespace AuthTest.Controllers
     {
         private UserManager<User> UserManager { get; set; }
 
-        public AccountController() : this(new UserManager<User>(new UserStore()))
+        public AccountController() : this(new UserManager<User>(new CustomUserStore()))
         {
         }
 

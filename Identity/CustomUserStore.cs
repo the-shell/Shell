@@ -11,11 +11,11 @@ using Dapper;
 
 namespace Shell.Identity
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>, IUserSecurityStampStore<User>
+    public class CustomUserStore : IUserStore<User>, IUserPasswordStore<User>, IUserSecurityStampStore<User>
     {
         private string connectionString { get; set; }
 
-        public UserStore()
+        public CustomUserStore()
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
         }
@@ -39,7 +39,6 @@ namespace Shell.Identity
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public Task<User> FindByIdAsync(string userId)

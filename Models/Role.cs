@@ -5,7 +5,9 @@ using System.Web;
 
 namespace Shell.Models
 {
-    public class Role
+    public enum Role
     {
+        Standard,
+        Admin
     }
 }
