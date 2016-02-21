@@ -10,5 +10,6 @@ namespace Shell.Repository
     public interface IOrganisationRepository : IRepository<Organisation>
     {
         void Insert(Organisation org, string UserId);
+        List<Organisation> GetUserOrganisations(string userId);
     }
 }

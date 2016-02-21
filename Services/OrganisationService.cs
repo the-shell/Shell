@@ -26,9 +26,21 @@ namespace Shell.Models.Repository
             _repository.Insert(org, model.UserId);
         }
 
-        public List<Organisation> GetUserOrganisations(string userId)
+        public List<OrganisationListViewModel> GetUserOrganisations(string userId)
         {
-            return new List<Organisation>();
+            var userOrgs = _repository.GetUserOrganisations(userId);
+            List<OrganisationListViewModel> orgs = new List<OrganisationListViewModel>();
+            foreach (var org in userOrgs)
+            {
+                orgs.Add(new OrganisationListViewModel
+                {
+                    Name = org.Name,
+                    Id = org.Id
+                    //Todo add roles
+                });
+            }
+
+            return orgs;
         }
     }
 }

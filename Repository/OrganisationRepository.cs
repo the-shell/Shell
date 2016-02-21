@@ -50,6 +50,24 @@ insert into OrganisationUser(OrganisationId, UserId, Role)
         {
             throw new NotImplementedException();
         }
-        
+
+        public List<Organisation> GetUserOrganisations(string userId)
+        {
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                var orgs = conn.Query<Organisation>(@"
+SELECT * FROM Organisations
+    INNER JOIN OrganisationUser ON Organisations.Id = OrganisationUser.OrganisationId
+    WHERE OrganisationUser.UserId = @UserId", new { UserId = userId }).ToList();
+
+                return orgs;
+
+            }
+        }
     }
 }
+
+//SELECT Orgs.Id as OrganisationId, Orgs.Name as OrganisationName, OrgUser.Role as UserRole
+//    FROM OrganisationUser OrgUser
+//    INNER JOIN Organisations Orgs ON Orgs.Id = OrgUser.OrganisationId
+//    WHERE OrgUser.UserId = @UserId", new { UserId = userId }).ToList();

@@ -18,4 +18,10 @@ namespace Shell.Models
 
         public DateTime DateCreated { get; set; }
     }
+
+    public class OrganisationRole
+    {
+        public Organisation Organisation { get; set; }
+        public Role Role { get; set; }
+    }
 }

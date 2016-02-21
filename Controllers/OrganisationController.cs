@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity;
 using Shell.DAL;
 using Shell.Models;
 using Shell.Models.Repository;
-using Shell.UI.ViewModels.Organisation;
 using Shell.Utils;
 using System.Diagnostics;
 

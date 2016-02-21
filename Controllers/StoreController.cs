@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Shell.DAL;
 using Shell.Models;
 using Shell.ViewModels;
-using Shell.ViewModels.Product;
 
 namespace Shell.Controllers
 {

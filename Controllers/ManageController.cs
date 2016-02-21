@@ -1,38 +1,29 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Shell.Models;
-using Shell.Models.Repository;
-using Shell.UI.ViewModels.Manage;
-using Shell.Controllers;
-using Shell.UI.ViewModels.Organisation;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using Shell.Identity;
 using Shell.Services;
+using Shell.ViewModels;
+using System.Diagnostics;
 
 namespace Shell.UI.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<User> _manager;
+        private readonly UserManager<User> _userManager;
+        private readonly CustomUserStore _userStore;
         private readonly IOrganisationService _organisationService;
-
-        //public ManageController() : this(new UserManager<User>(new CustomUserStore()), IOrganisationService service)
-        //{
-        //}
 
         public ManageController(UserManager<User> userManager, IOrganisationService organisationService)
         {
             _organisationService = organisationService;
-            _manager = userManager;
-            _manager.UserValidator = new CustomValidator<User>(_manager);
+            _userManager = userManager;
+            _userManager.UserValidator = new CustomValidator<User>(_userManager);
 
         }
 
@@ -40,22 +31,18 @@ namespace Shell.UI.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
 
-
-
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+
+            var model = new ManageViewModel
             {
-                HasPassword = HasPassword()
+                Organisations = _organisationService.GetUserOrganisations(userId)
             };
+
+            foreach(var a in model.Organisations)
+            {
+                Debug.WriteLine(a.Name + " " + a.Id);
+            }
+
 
             return View(model);
         }
@@ -89,10 +76,10 @@ namespace Shell.UI.Controllers
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
-            var result = await _manager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            var result = await _userManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
-                var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInAsync(user, IsPersistent: false);
@@ -172,10 +159,10 @@ namespace Shell.UI.Controllers
             {
                 return View(model);
             }
-            var result = await _manager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            var result = await _userManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
             if (result.Succeeded)
             {
-                var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInAsync(user, IsPersistent: false);
@@ -191,12 +178,12 @@ namespace Shell.UI.Controllers
         // GET: /Manage/RemovePhoneNumber
         public async Task<ActionResult> RemovePhoneNumber()
         {
-            var result = await _manager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
+            var result = await _userManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
-            var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
                 await SignInAsync(user, IsPersistent: false);
@@ -221,10 +208,10 @@ namespace Shell.UI.Controllers
             {
                 return View(model);
             }
-            var result = await _manager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await _userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInAsync(user, IsPersistent: false);
@@ -250,10 +237,10 @@ namespace Shell.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _manager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                var result = await _userManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+                    var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                     {
                         await SignInAsync(user, IsPersistent: false);
@@ -275,12 +262,12 @@ namespace Shell.UI.Controllers
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
-            var user = await _manager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
             {
                 return View("Error");
             }
-            var userLogins = await _manager.GetLoginsAsync(User.Identity.GetUserId());
+            var userLogins = await _userManager.GetLoginsAsync(User.Identity.GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
@@ -299,15 +286,15 @@ namespace Shell.UI.Controllers
             {
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             }
-            var result = await _manager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            var result = await _userManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _manager != null)
+            if (disposing && _userManager != null)
             {
-                _manager.Dispose();
+                _userManager.Dispose();
             }
 
             base.Dispose(disposing);
@@ -335,7 +322,7 @@ namespace Shell.UI.Controllers
 
         private bool HasPassword()
         {
-            var user = _manager.FindById(User.Identity.GetUserId());
+            var user = _userManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
                 return user.PasswordHash != null;
@@ -367,7 +354,7 @@ namespace Shell.UI.Controllers
         private async Task SignInAsync(User user, bool IsPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = IsPersistent }, identity);
         }
 
