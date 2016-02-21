@@ -35,11 +35,10 @@ namespace Shell.Models.Repository
                 orgs.Add(new OrganisationListViewModel
                 {
                     Name = org.Name,
-                    Id = org.Id
-                    //Todo add roles
+                    Id = org.Id,
+                    RoleName = _repository.IsAdmin(userId, org.Id) ? "Admin" : "Standard User"
                 });
             }
-
             return orgs;
         }
     }

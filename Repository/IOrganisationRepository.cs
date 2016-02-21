@@ -11,5 +11,6 @@ namespace Shell.Repository
     {
         void Insert(Organisation org, string UserId);
         List<Organisation> GetUserOrganisations(string userId);
+        bool IsAdmin(string UserId, int orgId);
     }
 }

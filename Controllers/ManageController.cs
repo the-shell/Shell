@@ -10,7 +10,7 @@ using Shell.Services;
 using Shell.ViewModels;
 using System.Diagnostics;
 
-namespace Shell.UI.Controllers
+namespace Shell.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -40,7 +40,7 @@ namespace Shell.UI.Controllers
 
             foreach(var a in model.Organisations)
             {
-                Debug.WriteLine(a.Name + " " + a.Id);
+                Debug.WriteLine(a.Name + " " + a.Id + " " + a.RoleName);
             }
 
 

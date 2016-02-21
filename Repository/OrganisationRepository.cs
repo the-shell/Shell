@@ -61,7 +61,23 @@ SELECT * FROM Organisations
     WHERE OrganisationUser.UserId = @UserId", new { UserId = userId }).ToList();
 
                 return orgs;
+            }
+        }
 
+        public bool IsAdmin(string userId, int orgId)
+        {
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                var isAdmin = conn.Execute(@"
+SELECT OrganisationUser.Role FROM OrganisationUser
+    WHERE OrganisationUser.UserId = @userId AND OrganisationUser.OrganisationId = @orgId",
+    new { userId, orgId }
+    );
+                if (isAdmin == 0)
+                {
+                    return false;
+                }
+                return true;
             }
         }
     }
