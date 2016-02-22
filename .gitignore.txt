@@ -1,0 +1,6 @@
+packages/
+Shell/obj/
+Shell/bin/
+Shell.Test/bin/
+Shell.Test/obj/
+.vs/
