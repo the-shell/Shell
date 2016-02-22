@@ -133,11 +133,17 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
+<<<<<<< HEAD:Shell/.gitignore
 ## TODO: Comment the next line if you want to checkin your
 ## web deploy settings but do note that will include unencrypted
 ## passwords
 #*.pubxml
 
+=======
+# TODO: Comment the next line if you want to checkin your web deploy settings
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+>>>>>>> 8d55987... fixing and getting ready for contributer:.gitignore.txt
 *.publishproj
 
 # NuGet Packages
@@ -211,6 +217,7 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+<<<<<<< HEAD:Shell/.gitignore
 *.pubxml
 PublishProfiles/
 Migrations/
@@ -223,3 +230,23 @@ Shell.csproj
 Global.asax
 Web.Debug.Config
 Web.Release.config
+=======
+# FAKE - F# Make
+.fake/
+
+# JetBrains Rider
+.idea/
+<<<<<<< HEAD
+*.sln.iml
+=======
+*.sln.iml
+
+# Mine
+.vs/
+Shell.Test/obj/
+Shell.Test/bin/
+Shell/bin/
+Shell/obj/
+packages/
+>>>>>>> 1e8445f... fixing and getting ready for contributer
+>>>>>>> 8d55987... fixing and getting ready for contributer:.gitignore.txt
