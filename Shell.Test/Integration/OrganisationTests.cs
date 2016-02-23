@@ -15,14 +15,13 @@ namespace Shell.Test.Integration
         [TestMethod]
         public void OrganisationCreatedWithCorrectParams()
         {
-            IOrganisationService service = new OrganisationService(new OrganisationRepository(new SqlConnectionFactory("Data Source = DESKTOP-CK761NH\\SQLEXPRESS; Initial Catalog = ShellDb; User ID = sa; Password = password; MultipleActiveResultSets = true")));
+            IOrganisationService service = GetOrganistionService();
             User testUser = new User
             {
                 FirstName = "Ryan",
                 LastName = "Reynolds",
                 EmailAddress = "ryan@test.com",
                 UserName = "ryan@test.com",
-                Id = Guid.NewGuid()
             };
             Organisation org = new Organisation
             {
@@ -37,11 +36,10 @@ namespace Shell.Test.Integration
             Assert.AreEqual(org.Name, insertedOrg.Name);
         }
 
-        [TestMethod]
-        public void Test()
+        private IOrganisationService GetOrganistionService()
         {
-            var f = 5 + 5;
-            Assert.AreEqual(f, 5 + 5);
+            IOrganisationService service = new OrganisationService(new OrganisationRepository(new SqlConnectionFactory("Data Source = DESKTOP-CK761NH\\SQLEXPRESS; Initial Catalog = ShellDb; User ID = sa; Password = password; MultipleActiveResultSets = true")));
+            return service;
         }
     }
 }

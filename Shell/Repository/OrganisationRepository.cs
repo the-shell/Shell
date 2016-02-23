@@ -96,8 +96,3 @@ SELECT * FROM Organisations
         }
     }
 }
-
-//SELECT Orgs.Id as OrganisationId, Orgs.Name as OrganisationName, OrgUser.Role as UserRole
-//    FROM OrganisationUser OrgUser
-//    INNER JOIN Organisations Orgs ON Orgs.Id = OrgUser.OrganisationId
-//    WHERE OrgUser.UserId = @UserId", new { UserId = userId }).ToList();
