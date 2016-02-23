@@ -1,23 +1,19 @@
-﻿@model Shell.UI.ViewModels.Manage.CreateOrganisationViewModel
+﻿@model Shell.ViewModels.CreateOrganisationViewModel
 
-<div class="form-horizontal">
-    <h4>Organisation</h4>
+<h4>Create a new organisation</h4>
 
-    <form name="createOrganisationForm" id="createOrganisationForm">
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" name="Name"/>
-            </div>
+@using (Html.BeginForm("CreateOrganisation", "Manage", FormMethod.Post, ""))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button value="Create" class="btn btn-default" onclick="createOrganisationPost()" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Create" />
         </div>
-
-    </form>
-    
-</div>
+    </div>
+}

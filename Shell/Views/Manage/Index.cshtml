@@ -68,7 +68,6 @@
     }
 
     function postOrganisation(org) {
-        console.log(org);
         $.ajax({
             type: 'POST',
             url: '@Url.Action("CreateOrganisation")',
@@ -76,13 +75,13 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(org),
             success: function (response) {
-                if (response.result == 'Redirect')
-                    window.location = response.url;
+                if (response.result == "Succeeded")
+                    console.log(response.result);
+                    showOrganisations();
             },
             error: function (result){
                 console.log(result);
             }
-            
         });
     }
 

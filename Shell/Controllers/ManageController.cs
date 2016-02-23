@@ -9,6 +9,8 @@ using Shell.Identity;
 using Shell.Services;
 using Shell.ViewModels;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Web.UI;
 
 namespace Shell.Controllers
 {
@@ -52,17 +54,24 @@ namespace Shell.Controllers
             return PartialView("_UserOrganisationList", orgs);
         }
 
-        //[HttpPost]
-        //public ActionResult CreateOrganisation(CreateOrganisationViewModel model)
-        //{
-        //    string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        public ActionResult CreateOrganisation()
+        {
+            return PartialView("_CreateOrganisation");
+        }
 
-        //    Organisation o = new Organisation(model.Name, userId);
+        [HttpPost]
+        public async Task<ActionResult> CreateOrganisation(CreateOrganisationViewModel model)
+        {
+            string userId = User.Identity.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId);
 
-        //    int id = _service.CreateOrganisation(o);
-
-        //    return Json(new { result = "Redirect", url = Url.Action("Details", "Organisation", new { id = id }) });
-        //}
+            Organisation org = new Organisation
+            {
+                Name = model.Name,
+                Users = new List<User> { user }
+            };
+            return RedirectToAction("Index");
+        }
 
         #endregion
 
