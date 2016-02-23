@@ -20,8 +20,9 @@ namespace Shell.Repository
             _dbConnectionFactory = factory;
         }
 
-        public void Insert(Organisation entity, string userId)
+        public int Insert(Organisation entity)
         {
+            var adminUser = entity.Users.FirstOrDefault();
             using (var conn = _dbConnectionFactory.CreateConnection())
             {
                 using (var trans = conn.BeginTransaction())
@@ -36,11 +37,12 @@ insert into Organisations(Name)
 insert into OrganisationUser(OrganisationId, UserId, Role) 
     values (@OrganisationId, @UserId, @Role)", new {
                             OrganisationId = entity.Id,
-                            UserId = userId,
+                            UserId = adminUser.Id,
                             Role = Role.Admin
                         }, transaction: trans);
 
                         trans.Commit();
+                        return entity.Id;
                     }
                 }
             }
@@ -78,6 +80,18 @@ SELECT OrganisationUser.Role FROM OrganisationUser
                     return false;
                 }
                 return true;
+            }
+        }
+
+        public Organisation GetById(int id)
+        {
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                var org = conn.Query<Organisation>(@"
+SELECT * FROM Organisations
+    WHERE Organisations.Id = @id",
+    new { id }).FirstOrDefault();
+                return org;
             }
         }
     }

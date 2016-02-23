@@ -11,6 +11,7 @@ namespace Shell.Services
     public interface IOrganisationService
     {
         List<OrganisationListViewModel> GetUserOrganisationList(string userId);
-        void Create(CreateOrganisationViewModel org);
+        int Create(Organisation org);
+        Organisation GetById(int id);
     }
 }

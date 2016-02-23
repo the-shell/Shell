@@ -14,14 +14,17 @@ namespace Shell.Models
 
         public string Name { get; set; }
 
-        public IQueryable<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public List<User> Users { get; set; }
     }
 
     public class OrganisationRole
     {
         public Organisation Organisation { get; set; }
         public Role Role { get; set; }
+        public User User { get; set; }
     }
 }

@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
+using Shell.DAL;
 using Shell.Identity;
 using Shell.Models;
+using Shell.Models.Repository;
+using Shell.Repository;
 using Shell.Services;
 using Shell.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Shell.Controllers
@@ -23,16 +27,6 @@ namespace Shell.Controllers
 
         public ActionResult Index()
         {
-            CreateOrganisationViewModel a = new CreateOrganisationViewModel
-            {
-                Name = "First"
-            };
-            a.UserId = User.Identity.GetUserId();
-            if (User.Identity.IsAuthenticated)
-            {
-                _organisationService.Create(a);
-            }
-            
             return View();
         }
 

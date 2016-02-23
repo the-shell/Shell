@@ -17,13 +17,15 @@ namespace Shell.Models.Repository
             _repository = repository;
         }
 
-        public void Create(CreateOrganisationViewModel model)
+        public int Create(Organisation model)
         {
-            var org = new Organisation
-            {
-                Name = model.Name
-            };
-            _repository.Insert(org, model.UserId);
+            model.DateCreated = DateTime.UtcNow;
+            return _repository.Insert(model);
+        }
+
+        public Organisation GetById(int id)
+        {
+            return _repository.GetById(id);
         }
 
         public List<OrganisationListViewModel> GetUserOrganisationList(string userId)

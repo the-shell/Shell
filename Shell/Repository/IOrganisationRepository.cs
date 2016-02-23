@@ -9,8 +9,8 @@ namespace Shell.Repository
 {
     public interface IOrganisationRepository : IRepository<Organisation>
     {
-        void Insert(Organisation org, string UserId);
         List<Organisation> GetUserOrganisations(string userId);
         bool IsAdmin(string UserId, int orgId);
+        Organisation GetById(int id);
     }
 }
