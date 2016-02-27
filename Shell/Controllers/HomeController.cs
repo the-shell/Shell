@@ -14,11 +14,11 @@ namespace Shell.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IOrganisationService _organisationService;
+        private readonly IBusinessService _organisationService;
         private readonly UserManager<User> _userManager;
         private readonly CustomUserStore _userStore;
 
-        public HomeController(IOrganisationService organisationService, UserManager<User> manager, CustomUserStore store)
+        public HomeController(IBusinessService organisationService, UserManager<User> manager, CustomUserStore store)
         {
             _organisationService = organisationService;
             _userManager = manager;

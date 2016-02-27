@@ -28,8 +28,6 @@ namespace Shell.Models
             }
         }
 
-        public ICollection<Store> Stores { get; set; }
-
         public string UserName
         {
             get

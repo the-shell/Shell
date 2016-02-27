@@ -34,7 +34,14 @@ namespace Shell.Identity
 
         public Task DeleteAsync(User user)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Execute("DELETE FROM Users WHERE Users.Id = @Id", new { Id = user.Id });
+                }
+            });
+            
         }
 
         public void Dispose()

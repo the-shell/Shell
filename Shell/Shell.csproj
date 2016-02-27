@@ -34,6 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\ShellComments.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -194,29 +196,30 @@
     <Compile Include="DAL\IDbConnectionFactory.cs" />
     <Compile Include="DAL\SqlConnectionFactory.cs" />
     <Compile Include="Identity\CustomValidator.cs" />
-    <Compile Include="Models\Intermediary.cs" />
     <Compile Include="Identity\CustomUserStore.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Repository\IOrganisationRepository.cs" />
-    <Compile Include="Repository\OrganisationRepository.cs" />
-    <Compile Include="Services\IOrganisationService.cs" />
-    <Compile Include="Services\OrganisationService.cs" />
+    <Compile Include="Repository\IBusinessRepository.cs" />
+    <Compile Include="Repository\BusinessRepository.cs" />
+    <Compile Include="Repository\IProductRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Services\IBusinessService.cs" />
+    <Compile Include="Services\BusinessService.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrganisationController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="DAL\S3Client.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Organisation.cs" />
+    <Compile Include="Models\Business.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
     <Compile Include="Models\Role.cs" />
@@ -228,7 +231,6 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\StoreFrontViewModel.cs" />
-    <Compile Include="Utils\OrganisationOwner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -310,18 +312,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="ViewModels\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="ViewModels\Account\ConfirmEmail.cshtml" />
+    <Content Include="ViewModels\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="ViewModels\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="ViewModels\Account\ForgotPassword.cshtml" />
+    <Content Include="ViewModels\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="ViewModels\Account\Login.cshtml" />
+    <Content Include="ViewModels\Account\Register.cshtml" />
+    <Content Include="ViewModels\Account\ResetPassword.cshtml" />
+    <Content Include="ViewModels\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="ViewModels\Account\SendCode.cshtml" />
+    <Content Include="ViewModels\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />

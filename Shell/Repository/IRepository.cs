@@ -8,7 +8,8 @@ namespace Shell.Repository
 {
     public interface IRepository<TEntity>
     {
+        TEntity GetById(int id);
         int Insert(TEntity entity);
-        void Delete(TEntity entity);
+        void Delete(int id);
     }
 }

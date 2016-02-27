@@ -14,14 +14,14 @@ namespace Shell.App_Start
     using Models.Repository;
     using System.Data.Entity;
     using System.Configuration;
-    using System.Data.SqlClient;
-    using System.Data;
     using Services;
     using Models;
     using Repository;
     using DAL;
     using Identity;
     using Microsoft.AspNet.Identity;
+    using Ninject.Modules;
+    using System.Collections.Generic;
 
     public static class NinjectWebCommon 
     {
@@ -75,22 +75,20 @@ namespace Shell.App_Start
         {
             kernel.Load(Assembly.GetExecutingAssembly());
 
+            kernel.Bind<IDbConnectionFactory>().To<SqlConnectionFactory>()
+               .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+
             kernel.Bind<IUserStore<User>>().To<CustomUserStore>().InRequestScope();
             kernel.Bind<UserManager<User>>().ToSelf().InRequestScope();
 
-            kernel.Bind<IOrganisationService>().To<OrganisationService>().InRequestScope();
-            kernel.Bind<IOrganisationRepository>().To<OrganisationRepository>().InRequestScope();
-            kernel.Bind<IDbConnectionFactory>().To<SqlConnectionFactory>().InRequestScope()
-                .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+            kernel.Bind<IBusinessRepository>().To<BusinessRepository>().InRequestScope();
+            kernel.Bind<IBusinessService>().To<BusinessService>().InRequestScope();
 
-            //kernel.Bind<IUserStore<ApplicationUser>>()
-            //    .To<UserStore<ApplicationUser>>()
-            //    .WithConstructorArgument("context", context => kernel.Get<ApplicationDbContext>());
+            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
+            kernel.Bind<IUserService>().To<UserService>().InRequestScope();
 
-            //kernel.Bind<IAuthenticationManager>().ToMethod(
-            //    c =>
-            //        HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
-            
+            kernel.Bind<IProductRepository>().To<ProductRepository>().InRequestScope();
+            //kernel.Bind<IProductService>().To<ProductService>().InRequestScope();
         }
         
     }

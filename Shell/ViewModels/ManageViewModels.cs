@@ -7,7 +7,7 @@ namespace Shell.ViewModels
 {
     public class ManageViewModel
     {
-        public List<OrganisationListViewModel> Organisations { get; set; }
+        public List<OrganisationListViewModel> Businesses { get; set; }
     }
 
     public class OrganisationListViewModel
