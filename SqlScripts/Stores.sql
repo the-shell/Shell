@@ -1,4 +1,4 @@
-USE [ShellDb]
+USE [test]
 GO
 
 /****** Object:  Table [dbo].[Stores]    Script Date: 22/02/2016 6:26:14 PM ******/

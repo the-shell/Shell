@@ -1,7 +1,7 @@
 USE [ShellDb]
 GO
 
-/****** Object:  Table [dbo].[Users]    Script Date: 22/02/2016 6:26:25 PM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 28/02/2016 12:47:27 PM ******/
 SET ANSI_NULLS ON
 GO
 
