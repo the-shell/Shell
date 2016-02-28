@@ -15,7 +15,6 @@ namespace Shell.Test.Repositories
     public class BusinessRepositoryTests
     {
         public IBusinessRepository _orgRepo;
-        public IUserRepository _userRepo;
         CustomUserStore userStore;
 
         List<Business> businessList;
@@ -23,7 +22,6 @@ namespace Shell.Test.Repositories
 
         public BusinessRepositoryTests()
         {
-            _userRepo = new UserRepository(new SqlConnectionFactory(ConfigurationManager.ConnectionStrings["Default"].ConnectionString));
             _orgRepo = new BusinessRepository(new SqlConnectionFactory(ConfigurationManager.ConnectionStrings["Default"].ConnectionString));
             userStore = new CustomUserStore();
         }
