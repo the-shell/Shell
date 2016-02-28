@@ -31,7 +31,7 @@ namespace Shell.Services
         /// Get all the users in the business with the Id given
         /// </summary>
         /// <param name="id">The Id of the business to get users for</param>
-        /// <returns>A list of Users in the business</returns>
+        /// <returns>A list of all Users in the business</returns>
         List<User> GetUsers(int id);
     }
 }
