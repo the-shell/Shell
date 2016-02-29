@@ -18,9 +18,6 @@ namespace Shell.Repository
             _factory = factory;
         }
 
-        //<summary>
-        //Return a list
-        //</summary>
         public List<Business> GetBusinesses(Guid userId)
         {
             using (var conn = _factory.CreateConnection())
