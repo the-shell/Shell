@@ -88,7 +88,9 @@ namespace Shell.App_Start
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
 
             kernel.Bind<IProductRepository>().To<ProductRepository>().InRequestScope();
-            //kernel.Bind<IProductService>().To<ProductService>().InRequestScope();
+            kernel.Bind<IProductService>().To<ProductService>().InRequestScope();
+
+            kernel.Bind<IImageService>().To<S3ImageService>().InRequestScope();
         }
         
     }
