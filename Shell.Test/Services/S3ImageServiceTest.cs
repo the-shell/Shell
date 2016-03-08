@@ -28,11 +28,9 @@ namespace Shell.Test.Services
             string imageLocations = "C:\\Users\\awsuser\\aws\\testimages";
             var mockImages = new List<HttpPostedFileBase>();
 
-            var n = Directory.GetFiles(imageLocations).Count();
             foreach (var filePath in Directory.GetFiles(imageLocations))
             {
                 MemoryStream ms = new MemoryStream();
-
                 var img = Image.FromFile(filePath);
                 img.Save(ms, ImageFormat.Png);
                 var i = new Mock<HttpPostedFileBase>();
