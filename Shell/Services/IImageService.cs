@@ -24,5 +24,12 @@ namespace Shell.Services
         /// <param name="productId">The product Id that the image URLs belong to</param>
         /// <returns>The image URLs for the product</returns>
         List<string> GetImageURLs(int orgId, int productId);
+
+        /// <summary>
+        /// Deletes all the images for a product
+        /// </summary>
+        /// <param name="orgId">The business Id the product belongs to</param>
+        /// <param name="productId">The product Id that the image URLs belong to</param>
+        void DeleteImages(int orgId, int productId);
     }
 }

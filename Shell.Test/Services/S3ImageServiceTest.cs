@@ -28,7 +28,7 @@ namespace Shell.Test.Services
             string imageLocations = "C:\\Users\\awsuser\\aws\\testimages";
             var mockImages = new List<HttpPostedFileBase>();
 
-
+            var n = Directory.GetFiles(imageLocations).Count();
             foreach (var filePath in Directory.GetFiles(imageLocations))
             {
                 MemoryStream ms = new MemoryStream();
@@ -43,6 +43,10 @@ namespace Shell.Test.Services
         
             var urls = imageService.GetImageURLs(orgId, productId);
             Assert.AreEqual(3, urls.Count());
+
+            imageService.DeleteImages(orgId, productId);
+            urls = imageService.GetImageURLs(orgId, productId);
+            Assert.AreEqual(0, urls.Count());
         }
 
     private void SetUp()
