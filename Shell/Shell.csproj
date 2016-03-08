@@ -211,11 +211,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DAL\S3Client.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Services\IImageService.cs" />
+    <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\S3ImageService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -1129,8 +1132,6 @@
     <Content Include="Views\Manage\_CreateOrganisation.cshtml" />
     <Content Include="Views\Organisation\Create.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\version.json" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
