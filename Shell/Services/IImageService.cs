@@ -15,7 +15,8 @@ namespace Shell.Services
         /// <param name="files">The images to be uploaded</param>
         /// <param name="orgId">The business's Id that the products images belong to</param>
         /// <param name="productId">The product Id that the images belong to</param>
-        void UploadImages(List<HttpPostedFileBase> files, int orgId, int productId);
+        /// <returns>The main image file name</returns>
+        string UploadImages(List<Tuple<HttpPostedFileBase, bool>> files, int orgId, int productId);
 
         /// <summary>
         /// Returns all the URLs of the products images. 

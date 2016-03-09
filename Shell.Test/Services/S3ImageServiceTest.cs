@@ -25,27 +25,37 @@ namespace Shell.Test.Services
 
             int orgId = 1;
             int productId = 1;
-            string imageLocations = "C:\\Users\\awsuser\\aws\\testimages";
-            var mockImages = new List<HttpPostedFileBase>();
 
-            foreach (var filePath in Directory.GetFiles(imageLocations))
-            {
-                MemoryStream ms = new MemoryStream();
-                var img = Image.FromFile(filePath);
-                img.Save(ms, ImageFormat.Png);
-                var i = new Mock<HttpPostedFileBase>();
-                i.Setup(file => file.InputStream).Returns(ms);
-                mockImages.Add(i.Object);
-            }
-            imageService.UploadImages(mockImages, orgId, productId);
-        
+            var imageList = new List<Tuple<HttpPostedFileBase, bool>>();
+
+            MemoryStream ms = new MemoryStream();
+            var img = Image.FromFile("C:\\Users\\awsuser\\aws\\testimages\\11.PNG");
+            img.Save(ms, ImageFormat.Png);
+            var mockImage = new Mock<HttpPostedFileBase>();
+            mockImage.Setup(o => o.InputStream).Returns(ms);
+            var listObject = new Tuple<HttpPostedFileBase,bool>(mockImage.Object, true);
+            imageList.Add(listObject);
+
+            ms = new MemoryStream();
+            img = Image.FromFile("C:\\Users\\awsuser\\aws\\testimages\\12.PNG");
+            img.Save(ms, ImageFormat.Png);
+            mockImage = new Mock<HttpPostedFileBase>();
+            mockImage.Setup(o => o.InputStream).Returns(ms);
+            listObject = new Tuple<HttpPostedFileBase, bool>(mockImage.Object, false);
+            imageList.Add(listObject);
+
+            var displayImage = imageService.UploadImages(imageList, orgId, productId);
+            Assert.AreNotEqual("", displayImage);
+
             var urls = imageService.GetImageURLs(orgId, productId);
-            Assert.AreEqual(3, urls.Count());
+            Assert.AreEqual(2, urls.Count());
 
             imageService.DeleteImages(orgId, productId);
             urls = imageService.GetImageURLs(orgId, productId);
             Assert.AreEqual(0, urls.Count());
         }
+
+        
 
     private void SetUp()
     {

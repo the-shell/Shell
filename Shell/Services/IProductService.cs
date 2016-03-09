@@ -1,4 +1,5 @@
 ﻿using Shell.Models;
+using Shell.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Shell.Services
 {
     public interface IProductService
     {
-        void Create(Product product);
+        void Create(CreateProductViewModel product);
     }
 }

@@ -9,5 +9,7 @@ namespace Shell.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public string DisplayImage { get; set; }
     }
 }

@@ -14,20 +14,31 @@ namespace Shell.Services
 
         IAmazonS3 _client;
 
-        public void UploadImages(List<HttpPostedFileBase> files, int orgId, int productId)
+        public string UploadImages(List<Tuple<HttpPostedFileBase, bool>> files, int orgId, int productId)
         {
+            string displayImageName = "";
+
             using (_client = new AmazonS3Client())
             {
                 try
                 {
-                    files.ForEach(
-                        file => _client.PutObject(new PutObjectRequest
+                    foreach(var file in files)
+                    {
+                        var key = string.Format("{0}/{1}/{2}", orgId, productId, Guid.NewGuid());
+
+                        if (file.Item2)
                         {
-                            Key = string.Format("{0}/{1}/{2}", orgId, productId, Guid.NewGuid()),
+                            displayImageName = key;
+                        }
+                        var request = new PutObjectRequest
+                        {
+                            Key = key,
                             BucketName = imagesBucket,
-                            InputStream = file.InputStream
-                        })
-                    );
+                            InputStream = file.Item1.InputStream
+                        };
+                        _client.PutObject(request);
+                    }
+                    return displayImageName;
                 }
                 catch
                 {

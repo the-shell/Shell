@@ -11,5 +11,6 @@ namespace Shell.Repository
         TEntity GetById(int id);
         int Insert(TEntity entity);
         void Delete(int id);
+        void Update(TEntity entity);
     }
 }
