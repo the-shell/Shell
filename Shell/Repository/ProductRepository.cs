@@ -40,5 +40,27 @@ INSERT INTO Products(Name, Description, Price, DateCreated)
 
             }
         }
+
+        public void Update(Product entity)
+        {
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                conn.Execute(@"
+UPDATE Products 
+    SET (
+        Name = @name,
+        Description = @description,
+        Price = @price,
+        DisplayImage = @displayImage)
+    WHERE (Id = @id)",
+    new
+    {
+        name = entity.Name,
+        description = entity.Description,
+        price = entity.Price,
+        displayImage = entity.DisplayImage
+    });
+            }
+        }
     }
 }

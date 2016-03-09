@@ -139,5 +139,10 @@ INSERT INTO BusinessUsers(BusinessId, UserId, Role)
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Business entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
