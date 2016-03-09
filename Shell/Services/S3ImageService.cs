@@ -16,7 +16,7 @@ namespace Shell.Services
 
         public void UploadImages(List<HttpPostedFileBase> files, int orgId, int productId)
         {
-           using (_client = new AmazonS3Client())
+            using (_client = new AmazonS3Client())
             {
                 try
                 {
@@ -61,6 +61,36 @@ namespace Shell.Services
                     urls.Add(url);
                 }
                 return urls;
+            }
+        }
+
+        public void DeleteImages(int orgId, int productId)
+        {
+            var listRequest = new ListObjectsRequest
+            {
+                BucketName = imagesBucket,
+                Prefix = string.Format("{0}/{1}", orgId, productId)
+            };
+
+            using (_client = new AmazonS3Client())
+            {
+                var keys = _client.ListObjects(listRequest);
+                var keyVersions = new List<KeyVersion>();
+
+                keys.S3Objects.ForEach(i => keyVersions.Add(
+                    new KeyVersion
+                    {
+                        Key = i.Key,
+                        VersionId = null
+                    }
+                ));
+
+                var request = new DeleteObjectsRequest
+                {
+                    BucketName = imagesBucket,
+                    Objects = keyVersions
+                };
+                _client.DeleteObjects(request);
             }
         }
     }
