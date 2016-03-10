@@ -11,32 +11,54 @@ namespace Shell.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly IDbConnectionFactory _dbConnectionFactory;
+
+        public ProductRepository(IDbConnectionFactory dbConnectionFactory)
+        {
+            _dbConnectionFactory = dbConnectionFactory;
+        }
+
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                conn.Execute(@"
+DELETE FROM Products 
+    WHERE Products.Id = @Id",
+    new { Id = id });
+            }
         }
 
         public Product GetById(int id)
         {
-            throw new NotImplementedException();
+            using (var conn = _dbConnectionFactory.CreateConnection())
+            {
+                var product = conn.Query<Product>(@"
+SELECT * FROM Products 
+    WHERE Products.Id = @Id",
+    new { Id = id }).SingleOrDefault();
+                return product;
+            }
         }
 
         public int Insert(Product entity)
         {
             using (var conn = _dbConnectionFactory.CreateConnection())
             {
-                var id = (int)conn.Query(@"
-INSERT INTO Products(Name, Description, Price, DateCreated)
-    VALUES(@Name, @Description, @Price)
+                entity.Id = (int)conn.Query<decimal>(@"
+INSERT INTO Products(BusinessId, UserId, Name, Description, Price, DateCreated, DisplayImage)
+    VALUES(@BusinessId, @UserId, @Name, @Description, @Price, @DateCreated, @DisplayImage)
     SELECT CAST(SCOPE_IDENTITY() AS int)",
     new
     {
+        BusinessId = entity.BusinessId,
+        UserId = entity.UserId,
         Name = entity.Name,
         Description = entity.Description,
         Price = entity.Price,
-        DateCreated = entity.DateCreated
+        DateCreated = DateTime.UtcNow,
+        DisplayImage = entity.DisplayImage
     }).Single();
-                return id;
+                return entity.Id;
 
             }
         }
