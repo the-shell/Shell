@@ -33,7 +33,7 @@ namespace Shell.Test.Services
             img.Save(ms, ImageFormat.Png);
             var mockImage = new Mock<HttpPostedFileBase>();
             mockImage.Setup(o => o.InputStream).Returns(ms);
-            var listObject = new Tuple<HttpPostedFileBase,bool>(mockImage.Object, true);
+            var listObject = new Tuple<HttpPostedFileBase, bool>(mockImage.Object, true);
             imageList.Add(listObject);
 
             ms = new MemoryStream();
@@ -55,11 +55,11 @@ namespace Shell.Test.Services
             Assert.AreEqual(0, urls.Count());
         }
 
-        
 
-    private void SetUp()
-    {
-        imageService = new S3ImageService();
+
+        private void SetUp()
+        {
+            imageService = new S3ImageService();
+        }
     }
-}
 }
